@@ -1,0 +1,64 @@
+body
+{
+  margin: 0px;
+  font-family: 'Merriweather', serif;
+}
+
+h1,h2
+{
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  margin: 5px;
+}
+
+img
+{
+  width: 100%;
+}
+
+article
+{
+  width: 720px;
+  margin: 0 auto;
+  line-height: 200%;
+}
+
+h1
+{
+  font-size: 36px;
+  margin-top: 50px;
+}
+
+h2
+{
+  font-size: 24px;
+  color: rgba(0,0,0,0.5);
+}
+
+p
+{
+  font-size: 18px;
+}
+
+a
+{
+  color: rgba(0,0,0,1);
+  font-weight: bold;
+}
+
+hr::before
+{
+  /*Content has to be placed before hr, because hr has no content*/
+
+  display: inline-block;
+  content: "...";
+  letter-spacing: 20px;
+  color: rgba(0,0,0,0.5);
+  text-align: center;
+  width: 100%;
+}
+
+hr
+{
+  border: 0;
+}

@@ -1,0 +1,101 @@
+img
+{
+  width: 80%;
+  height: 400px;
+  position: absolute;
+  top: 0px;
+  left: 10%;
+}
+
+main
+{
+  font-family: 'Raleway', sans-serif;
+  color: #222;
+  position: relative;
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+h1, h2, .quote
+{
+  font-family: 'Abril Fatface', cursive;
+}
+
+h1
+{
+  font-size: 60px;
+  color: #222;
+  margin: 0 auto 60px;
+}
+
+h2
+{
+  font-size: 35px;
+  margin: 260px auto 0;
+}
+
+p
+{
+  line-height: 1.5em;
+  margin-top: 30px;
+}
+
+h3
+{
+  font-size: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h4
+{
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+h5
+{
+  font-style: italic;
+  margin-top: 0;
+}
+
+ul, p, h5
+{
+  font-size: 15px;
+}
+
+hr
+{
+  border: 2px solid black;
+  margin: 50px auto;
+}
+
+.intro
+{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 20px;
+}
+
+.quote::before
+{
+  content: '“';
+  display: block;
+  position: relative;
+  top: -10px;
+  left: -50px;
+  font-size: 100px;
+  line-height: 0px;
+}
+
+.quote
+{
+  position: relative;
+  left: -50px;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: #444;
+  color: white;
+  width: 700px;
+  padding: 50px;
+  margin: 50px auto;
+}

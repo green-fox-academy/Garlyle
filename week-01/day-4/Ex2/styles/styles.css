@@ -1,0 +1,35 @@
+div
+{
+  font: 36px arial;
+  color: white;
+  text-align: center;
+  padding: 46px 0;
+}
+
+div.collect
+{
+  border: 16px solid rgb(66, 133, 244);
+  width: 348px;
+  margin: 5px;
+  padding: 0;
+}
+
+.north
+{
+  background-color: rgb(230, 118, 118);
+}
+
+.east
+{
+  background-color: rgb(242, 240, 98);
+}
+
+.south
+{
+  background-color: rgb(169, 230, 230);
+}
+
+.west
+{
+  background-color: rgb(118, 146, 228);
+}
