@@ -36,6 +36,12 @@ public class DrawDiamond {
                 }
             System.out.println(s);
         }
+        if (num % 2 == 0)
+        {
+            for (int i = 1; i < num; i++)
+                System.out.print("*");
+            System.out.println();
+        }
         for (int i = mid; i >= 1; i--)
         {
             String s = new String();
@@ -51,14 +57,5 @@ public class DrawDiamond {
             System.out.println(s);
         }
 
-//        if (i > mid)
-//        {
-//            for (int k = mid; k < i; k++)
-//            {
-//                s += "**";
-//            }
-//        }
-//        else
-//        {
     }
 }
