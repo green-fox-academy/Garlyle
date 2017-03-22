@@ -9,6 +9,7 @@ import java.util.Arrays;
 //   0 0 0 1
 //
 // - Print this two dimensional array to the output
+
 public class DiagonalMatrix {
   public static void main(String[] args) {
     int[][] matrix = new int[4][4];
