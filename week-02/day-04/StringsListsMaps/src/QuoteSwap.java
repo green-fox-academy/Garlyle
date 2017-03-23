@@ -9,7 +9,7 @@ public class QuoteSwap{
     // Your task is to fix it by swapping the right words with code
     int firstIndex = list.indexOf("cannot");
     int secondIndex = list.indexOf("do");
-    
+
     String temp = list.get(firstIndex);
     list.set(firstIndex, list.get(secondIndex));
     list.set(secondIndex, temp);
