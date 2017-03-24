@@ -56,7 +56,7 @@ public class StudentCounter{
       else
       {
         String s = row.get("age").toString();
-        agesWithLotsOfCandies += Double.valueOf(s);
+        agesWithLotsOfCandies += Double.parseDouble(s);
       }
     }
     System.out.println();
