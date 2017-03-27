@@ -38,7 +38,7 @@ public class Lotto {
       for (int i = 0; i < 5; i++)
       {
         int k = occurrenceOrder.get(i);
-        System.out.println("Occurrence of number " + k + ": " + numberOccurrence[k]);
+        System.out.println("Occurrence of number " + (k + 1) + ": " + numberOccurrence[k]);
       }
     }
     catch (Exception ex)
