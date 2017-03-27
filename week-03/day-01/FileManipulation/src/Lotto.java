@@ -5,7 +5,7 @@ public class Lotto {
 
   public static void main(String[] args) {
     // Create a method that find the 5 most common lotto numbers assets/lotto.csv
-    int[] numberOccurence = new int[90];
+    int[] numberoccurrence = new int[90];
     Path filePath = Paths.get("assets/otos.csv");
 
     try
@@ -13,17 +13,32 @@ public class Lotto {
       List<String> fileLines = Files.readAllLines(filePath);
       for (String line : fileLines)
       {
-        // get the 5 last element from each line, and increase occurence by index
+        // get the 5 last element from each line, and increase occurrence by index
         String[] split = line.split(";");
         for (int i = 1; i <= 5; i++)
         {
           int a = Integer.parseInt(split[split.length - i]);
-          numberOccurence[a - 1]++;
+          numberoccurrence[a - 1]++;
         }
       }
-      for (int i = 0; i < numberOccurence.length; i++)
+      System.out.println("Checking occurrence order");
+      ArrayList<Integer> occurrenceOrder = new ArrayList<Integer>();
+      occurrenceOrder.add(0);
+      for (int i = 1; i < numberoccurrence.length; i++)
+        for (int j = 0; j < occurrenceOrder.size(); j++)
+        {
+          int k = occurrenceOrder.get(j);
+          if (numberoccurrence[i] >= numberoccurrence[k])
+          {
+            occurrenceOrder.add(j, i);
+            break;
+          }
+        }
+      System.out.println("Done!");
+      for (int i = 0; i < 5; i++)
       {
-        System.out.println(i + 1 + ". occurence: " + numberOccurence[i]);
+        int k = occurrenceOrder.get(i);
+        System.out.println("Occurence of number " + k + ": " + numberoccurrence[k]);
       }
     }
     catch (Exception ex)
