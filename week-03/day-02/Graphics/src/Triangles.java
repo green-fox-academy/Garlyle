@@ -32,16 +32,15 @@ public class Triangles {
   }
 
   private static void drawTriangle(Graphics graphics, double x, double y, int size) {
-    double x1 = x + size * Math.cos(Math.PI / 180 * 30);
-    double y1 = y + size * Math.sin(Math.PI / 180 * 30);
-    double x2 = x + size * Math.cos(Math.PI / 180 * 150);
-    double y2 = y + size * Math.sin(Math.PI / 180 * 150);
-    double x3 = x + size * Math.cos(Math.PI / 180 * 270);
-    double y3 = y + size * Math.sin(Math.PI / 180 * 270);
-
-    graphics.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
-    graphics.drawLine((int)x1, (int)y1, (int)x3, (int)y3);
-    graphics.drawLine((int)x2, (int)y2, (int)x3, (int)y3);
+    double [][] corners = new double[3][2];
+    for (int i = 0; i < 3; i++)
+    {
+      corners[i][0] = x + size * Math.cos(Math.PI / 180 * (30 + i * 120));
+      corners[i][1] = y + size * Math.sin(Math.PI / 180 * (30 + i * 120));
+    }
+    graphics.drawLine((int)corners[0][0], (int)corners[0][1], (int)corners[1][0], (int)corners[1][1]);
+    graphics.drawLine((int)corners[0][0], (int)corners[0][1], (int)corners[2][0], (int)corners[2][1]);
+    graphics.drawLine((int)corners[1][0], (int)corners[1][1], (int)corners[2][0], (int)corners[2][1]);
   }
 
   //    Don't touch the code below
