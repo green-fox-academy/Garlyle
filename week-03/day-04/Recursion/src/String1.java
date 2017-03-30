@@ -8,8 +8,8 @@ public class String1 {
 
   private static String replaceXY(String s) {
     String recursiveString = s.substring(0, s.length() - 1);
-    char xChecker = s.charAt(s.length() - 1);
-    if (xChecker == 'x') xChecker = 'y';
+    String xChecker = s.substring(s.length() - 1);
+    if (xChecker.equals("x")) xChecker = "y";
 
     if (s.length() > 1)
     {
@@ -17,7 +17,7 @@ public class String1 {
     }
     else
     {
-      return Character.toString(xChecker);
+      return xChecker;
     }
   }
 }
