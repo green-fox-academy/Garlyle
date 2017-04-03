@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 
 public class SharpieSet {
-  ArrayList<Sharpie> sharpieSet = new ArrayList<>();
+  ArrayList<Sharpie> sharpieSet;
+
+  public SharpieSet()
+  {
+    sharpieSet = new ArrayList<>();
+  }
 
   public void add(Sharpie sharpie)
   {
@@ -21,12 +26,16 @@ public class SharpieSet {
 
   public void removeTrash()
   {
-    for (int i = 0; i < sharpieSet.size(); i++)
+    int i = 0;
+    while (i < sharpieSet.size())
     {
       if (sharpieSet.get(i).inkAmount <= 0.f)
       {
         sharpieSet.remove(i);
-        i--;
+      }
+      else
+      {
+        i++;
       }
     }
   }
