@@ -12,15 +12,11 @@ public class SierpinskyCarpet {
     if (depth > 1)
     {
       depth -= 1;
-
       for (int i = -1; i <= 1; i++)
         for (int j = -1; j <= 1; j++)
           if (i != 0 || j != 0)
           {
-            drawFractalCarpet(graphics, depth,
-                centerX + i * size,
-                centerY + j * size,
-                size / 3);
+            drawFractalCarpet(graphics, depth, centerX + i * size,centerY + j * size,size / 3);
           }
     }
   }
