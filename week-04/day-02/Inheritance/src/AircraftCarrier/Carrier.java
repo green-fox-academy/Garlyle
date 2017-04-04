@@ -5,12 +5,13 @@ import java.util.ArrayList;
 public class Carrier {
   ArrayList<Aircraft> storedAircrafts;
   int ammoStorage;
-  int hitPoints;
+  int healthPoints;
 
   public Carrier(int ammoStorage)
   {
     storedAircrafts = new ArrayList<>();
     this.ammoStorage = ammoStorage;
+    this.healthPoints = 3000;
   }
 
   public void addAircraft(String type)
@@ -23,11 +24,17 @@ public class Carrier {
 
   public void fill()
   {
-    // refill F35's first
     // if no ammo, throw exception
     for (Aircraft plane : storedAircrafts)
     {
-      if (plane.needsToBeRefilled())
+      if (plane.needsToBeRefilled() && plane.getType().equals("F35"))
+      {
+        ammoStorage = plane.refill(ammoStorage);
+      }
+    }
+    for (Aircraft plane : storedAircrafts)
+    {
+      if (plane.needsToBeRefilled() && !(plane.getType().equals("F35")))
       {
         ammoStorage = plane.refill(ammoStorage);
       }
@@ -46,7 +53,7 @@ public class Carrier {
 
   public void fight(Carrier enemy)
   {
-    enemy.hitPoints -= totalDamage();
+    enemy.healthPoints -= totalDamage();
     for (Aircraft plane : storedAircrafts)
     {
       plane.storedAmmo = 0;
@@ -55,7 +62,7 @@ public class Carrier {
 
   public void getStatus()
   {
-    if (hitPoints <= 0)
+    if (healthPoints <= 0)
     {
       System.out.println("It's dead Jim :(");
     }
@@ -67,7 +74,7 @@ public class Carrier {
       System.out.println("Aircrafts:");
       for (Aircraft plane : storedAircrafts)
       {
-        plane.getStatus();
+        System.out.println(plane.getStatus());
       }
     }
   }
