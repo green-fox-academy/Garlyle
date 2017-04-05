@@ -8,33 +8,45 @@ import java.util.List;
  */
 public class Extension {
   int add(int a, int b) {
-    return 5;
+    return a + b;
   }
 
   int maxOfThree(int a, int b, int c) {
-    if (a > b)
+    if (a >= b && a >= c)
+    {
       return a;
+    }
+    else if (b >= c)
+    {
+      return b;
+    }
     else
+    {
       return c;
+    }
   }
 
   int median(List<Integer> pool) {
-    return pool.get((pool.size()-1)/2);
+    int median = 0;
+    for (int i : pool)
+    {
+      median += i;
+    }
+    median /= pool.size();
+    return median;
   }
 
   boolean isVowel(char c) {
-    return Arrays.asList('a', 'u', 'o', 'e', 'i').contains(c);
+    return Arrays.asList('a', 'á', 'e', 'é', 'i', 'í', 'o', 'ó', 'ö', 'ő', 'u', 'ú', 'ü', 'ű').contains(c);
   }
 
   String translate(String hungarian) {
-    String teve = hungarian;
-    int length = teve.length();
-    for (int i = 0; i < length; i++) {
-      char c = teve.charAt(i);
+    String teve = new String();
+    for (char c : hungarian.toCharArray()) {
       if (isVowel(c)) {
-        teve = String.join(c + "v" + c, teve.split(""+c));
-        i+=2;
-        length+=2;
+        teve = teve + c + 'v' + c;
+      } else {
+        teve = teve + c;
       }
     }
     return teve;
