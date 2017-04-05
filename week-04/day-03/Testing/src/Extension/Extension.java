@@ -27,13 +27,15 @@ public class Extension {
   }
 
   int median(List<Integer> pool) {
-    int median = 0;
-    for (int i : pool)
-    {
-      median += i;
+    Integer[] sortedPool = (Integer[])pool.toArray();
+    Arrays.sort(sortedPool);
+
+    int middle = sortedPool.length/2;
+    if (sortedPool.length % 2 == 1) {
+      return sortedPool[middle];
+    } else {
+      return (sortedPool[middle-1] + sortedPool[middle]) / 2;
     }
-    median /= pool.size();
-    return median;
   }
 
   boolean isVowel(char c) {
