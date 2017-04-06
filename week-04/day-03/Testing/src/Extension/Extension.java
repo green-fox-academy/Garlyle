@@ -39,6 +39,7 @@ public class Extension {
   }
 
   boolean isVowel(char c) {
+    c = Character.toLowerCase(c);
     return Arrays.asList('a', 'á', 'e', 'é', 'i', 'í', 'o', 'ó', 'ö', 'ő', 'u', 'ú', 'ü', 'ű').contains(c);
   }
 
