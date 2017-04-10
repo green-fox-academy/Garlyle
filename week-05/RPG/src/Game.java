@@ -5,11 +5,13 @@ import java.awt.event.KeyListener;
 
 public class Game extends JComponent implements KeyListener {
   Area tilemap;
+  Hero hero;
   public Game() {
     setPreferredSize(new Dimension(720, 720));
     setVisible(true);
 
     tilemap = new Area();
+    hero = new Hero();
   }
 
   public static void main(String[] args) {
@@ -25,7 +27,10 @@ public class Game extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
+
     tilemap.draw(graphics);
+    hero.setMapCoords(1, 1);
+    hero.draw(graphics);
   }
 
   @Override
