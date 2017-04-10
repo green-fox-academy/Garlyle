@@ -2,16 +2,50 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class Game extends JComponent implements KeyListener {
   Area tilemap;
   Hero hero;
+  ArrayList<Monster> enemies;
+
   public Game() {
     setPreferredSize(new Dimension(720, 720));
     setVisible(true);
 
     tilemap = new Area();
     hero = new Hero();
+    enemies = new ArrayList<>();
+    for (int i = 0; i < 4; i++) {
+      int x, y;
+      do {
+        x = (int)(Math.random() * Area.TILES);
+        y = (int)(Math.random() * Area.TILES);
+      } while (!isPosValid(x, y));
+      if (i == 0) {
+        enemies.add(new Boss(x, y));
+      } else {
+        enemies.add(new Skeleton(x, y));
+      }
+    }
+  }
+
+  private boolean isPosValid(int x, int y) {
+    if (!tilemap.getTile(x, y)) {
+      // Tile is Wall
+      return false;
+    } else if (hero.getMapCoordX() == x || hero.getMapCoordY() == y) {
+      // Hero is there
+      return false;
+    } else if (!enemies.isEmpty()) {
+      // Check if enemy is there
+      for(Character c : enemies) {
+        if (c.getMapCoordX() == x && c.getMapCoordY() == y) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   public static void main(String[] args) {
@@ -30,6 +64,9 @@ public class Game extends JComponent implements KeyListener {
 
     tilemap.draw(graphics);
     hero.draw(graphics);
+    for (Monster m : enemies) {
+      m.draw(graphics);
+    }
   }
 
   @Override
