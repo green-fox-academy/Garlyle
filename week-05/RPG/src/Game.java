@@ -4,13 +4,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Game extends JComponent implements KeyListener {
-  Tile tileFloor, tileWall;
+  Area tilemap;
   public Game() {
     setPreferredSize(new Dimension(720, 720));
     setVisible(true);
 
-    tileFloor = new TileFloor();
-    tileWall = new TileWall();
+    tilemap = new Area();
   }
 
   public static void main(String[] args) {
@@ -26,8 +25,7 @@ public class Game extends JComponent implements KeyListener {
   @Override
   public void paint(Graphics graphics) {
     super.paint(graphics);
-    tileFloor.draw(graphics, 0, 0);
-    tileWall.draw(graphics, Tile.SIZE, Tile.SIZE);
+    tilemap.draw(graphics);
   }
 
   @Override
