@@ -29,7 +29,6 @@ public class Game extends JComponent implements KeyListener {
     super.paint(graphics);
 
     tilemap.draw(graphics);
-    hero.setMapCoords(1, 1);
     hero.draw(graphics);
   }
 
@@ -45,6 +44,21 @@ public class Game extends JComponent implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
-
+    int coordX = hero.getMapCoordX();
+    int coordY = hero.getMapCoordY();
+    if (e.getKeyCode() == KeyEvent.VK_UP) {
+      hero.turnHero(Hero.UP);
+      if (tilemap.getTile(coordX, coordY - 1)) hero.move(0, -1);
+    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+      hero.turnHero(Hero.DOWN);
+      if (tilemap.getTile(coordX, coordY + 1)) hero.move(0, 1);
+    } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+      hero.turnHero(Hero.LEFT);
+      if (tilemap.getTile(coordX - 1, coordY)) hero.move(-1, 0);
+    } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+      hero.turnHero(Hero.RIGHT);
+      if (tilemap.getTile(coordX + 1, coordY)) hero.move(1, 0);
+    }
+    repaint();
   }
 }

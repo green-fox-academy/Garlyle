@@ -13,16 +13,16 @@ public class Character extends Model {
     super.draw(g);
   }
 
-  public void setMapCoords(int x, int y) {
-    mapPosX = x;
-    mapPosY = y;
-  }
-
   public int getMapCoordX() {
     return mapPosX;
   }
 
   public int getMapCoordY() {
     return mapPosY;
+  }
+
+  public void move(int x, int y) {
+    mapPosX += x;
+    mapPosY += y;
   }
 }

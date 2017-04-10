@@ -36,4 +36,9 @@ public class Area {
       }
     }
   }
+
+  public boolean getTile(int x, int y) {
+    if (x < 0 || x >= TILES || y < 0 || y >= TILES) return false;
+    return tileset[y][x] == 0;
+  }
 }
