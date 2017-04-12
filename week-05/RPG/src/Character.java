@@ -32,4 +32,11 @@ public class Character extends GameObject {
     mapPosX += x;
     mapPosY += y;
   }
+
+  @Override
+  public String toString() {
+    String s = getClass().getName() + " (LEVEL " + level + ") HP: " + hp + "/" + maxHp +
+        " | DP: " + dp + " | SP: " + sp;
+    return s;
+  }
 }

@@ -4,7 +4,7 @@ public class Monster extends Character {
     super(filename);
     this.level = level;
     maxHp = hp = 2 * level * Dice.roll();
-    dp = level / 2 * Dice.roll();
+    dp = level * Dice.roll() / 2;
     sp = level * Dice.roll();
   }
 }

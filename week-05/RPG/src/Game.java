@@ -10,14 +10,18 @@ public class Game extends JComponent implements KeyListener {
   ArrayList<Monster> enemies;
 
   public Game() {
-    setPreferredSize(new Dimension(720, 720));
+    setPreferredSize(new Dimension(720, 720 + HUD.HEIGHT));
     setVisible(true);
 
     tilemap = new Area();
     hero = new Hero();
     enemies = new ArrayList<>();
 
-    createEnemies(3, 1);
+    createEnemies(3, 10);
+    System.out.println(hero);
+    for (Monster enemy : enemies) {
+      System.out.println(enemy);
+    }
   }
 
   public static void main(String[] args) {
@@ -79,6 +83,7 @@ public class Game extends JComponent implements KeyListener {
     for (Monster m : enemies) {
       m.draw(graphics);
     }
+    HUD.draw(graphics, 0, this.getHeight(), hero, enemies.get(0));
   }
 
   @Override
