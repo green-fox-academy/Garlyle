@@ -16,22 +16,44 @@ public class Game extends JComponent implements KeyListener {
     tilemap = new Area();
     hero = new Hero();
     enemies = new ArrayList<>();
-    for (int i = 0; i < 4; i++) {
-      int x, y;
-      do {
-        x = (int)(Math.random() * Area.TILES);
-        y = (int)(Math.random() * Area.TILES);
-      } while (!isPosValid(x, y));
-      if (i == 0) {
-        enemies.add(new Boss(x, y));
-      } else {
-        enemies.add(new Skeleton(x, y));
-      }
+
+    createEnemies(3);
+  }
+
+  public static void main(String[] args) {
+    createFrame();
+  }
+
+  private static void createFrame() {
+    JFrame frame = new JFrame("RPG Game");
+    Game game = new Game();
+    frame.add(game);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setVisible(true);
+    frame.pack();
+    frame.addKeyListener(game);
+  }
+
+  private void createEnemies(int num) {
+    enemies.clear();
+    addEnemy(new Boss());
+    for (int i = 0; i < num; i++) {
+      addEnemy(new Skeleton());
     }
   }
 
+  private void addEnemy(Monster enemy) {
+    int x, y;
+    do {
+      x = (int)(Math.random() * Area.TILES);
+      y = (int)(Math.random() * Area.TILES);
+    } while (!isPosValid(x, y));
+    enemy.move(x, y);
+    enemies.add(enemy);
+  }
+
   private boolean isPosValid(int x, int y) {
-    if (!tilemap.getTile(x, y)) {
+    if (!tilemap.isPassable(x, y)) {
       // Tile is Wall
       return false;
     } else if (hero.getMapCoordX() == x || hero.getMapCoordY() == y) {
@@ -46,16 +68,6 @@ public class Game extends JComponent implements KeyListener {
       }
     }
     return true;
-  }
-
-  public static void main(String[] args) {
-    JFrame frame = new JFrame("RPG Game");
-    Game game = new Game();
-    frame.add(game);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setVisible(true);
-    frame.pack();
-    frame.addKeyListener(game);
   }
 
   @Override
@@ -81,20 +93,20 @@ public class Game extends JComponent implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
-    int coordX = hero.getMapCoordX();
-    int coordY = hero.getMapCoordY();
+    int x = hero.getMapCoordX();
+    int y = hero.getMapCoordY();
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       hero.turnHero(Hero.UP);
-      if (tilemap.getTile(coordX, coordY - 1)) hero.move(0, -1);
+      if (tilemap.isPassable(x, y - 1)) hero.move(0, -1);
     } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
       hero.turnHero(Hero.DOWN);
-      if (tilemap.getTile(coordX, coordY + 1)) hero.move(0, 1);
+      if (tilemap.isPassable(x, y + 1)) hero.move(0, 1);
     } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
       hero.turnHero(Hero.LEFT);
-      if (tilemap.getTile(coordX - 1, coordY)) hero.move(-1, 0);
+      if (tilemap.isPassable(x - 1, y)) hero.move(-1, 0);
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       hero.turnHero(Hero.RIGHT);
-      if (tilemap.getTile(coordX + 1, coordY)) hero.move(1, 0);
+      if (tilemap.isPassable(x + 1, y)) hero.move(1, 0);
     }
     repaint();
   }

@@ -4,11 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Model {
+public class GameObject {
   BufferedImage image;
   int posX, posY;
 
-  public Model(String filename, int posX, int posY) {
+  public GameObject(String filename, int posX, int posY) {
     this.posX = posX;
     this.posY = posY;
 
@@ -23,14 +23,6 @@ public class Model {
     if (image != null) {
       g.drawImage(image, posX, posY, null);
     }
-  }
-
-  public int getPosX() {
-    return posX;
-  }
-
-  public int getPosY() {
-    return posY;
   }
 
   public void setPosition(int x, int y) {

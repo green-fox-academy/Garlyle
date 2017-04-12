@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Tile extends Model {
+public class Tile extends GameObject {
   final static int SIZE = 72;
 
   public Tile(String filename, int posX, int posY) {

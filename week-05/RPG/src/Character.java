@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Character extends Model {
+public class Character extends GameObject {
   int mapPosX, mapPosY;
   public Character(String filename) {
     super(filename, 0, 0);

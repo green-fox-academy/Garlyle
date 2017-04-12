@@ -1,8 +1,6 @@
 public class Monster extends Character {
 
-  public Monster(String filename, int x, int y) {
+  public Monster(String filename) {
     super(filename);
-    mapPosX = x;
-    mapPosY = y;
   }
 }
