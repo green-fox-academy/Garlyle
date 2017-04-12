@@ -3,11 +3,13 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Game extends JComponent implements KeyListener {
   Area tilemap;
   Hero hero;
   ArrayList<Monster> enemies;
+  Monster currentEnemy;
 
   public Game() {
     setPreferredSize(new Dimension(720, 720 + HUD.HEIGHT));
@@ -16,6 +18,7 @@ public class Game extends JComponent implements KeyListener {
     tilemap = new Area();
     hero = new Hero();
     enemies = new ArrayList<>();
+    currentEnemy = null;
 
     createEnemies(3, 10);
     System.out.println(hero);
@@ -56,6 +59,16 @@ public class Game extends JComponent implements KeyListener {
     enemies.add(enemy);
   }
 
+  private void checkForEnemies() {
+    for (Monster enemy : enemies) {
+      if (enemy.getMapCoordX() == hero.getMapCoordX() && enemy.getMapCoordY() == hero.getMapCoordY()) {
+        currentEnemy = enemy;
+        return;
+      }
+    }
+    currentEnemy = null;
+  }
+
   private boolean isPosValid(int x, int y) {
     if (!tilemap.isPassable(x, y)) {
       // Tile is Wall
@@ -83,7 +96,7 @@ public class Game extends JComponent implements KeyListener {
     for (Monster m : enemies) {
       m.draw(graphics);
     }
-    HUD.draw(graphics, 0, this.getHeight(), hero, enemies.get(0));
+    HUD.draw(graphics, 0, this.getHeight(), hero, currentEnemy);
   }
 
   @Override
@@ -113,6 +126,7 @@ public class Game extends JComponent implements KeyListener {
       hero.turnHero(Hero.RIGHT);
       if (tilemap.isPassable(x + 1, y)) hero.move(1, 0);
     }
+    checkForEnemies();
     repaint();
   }
 }
