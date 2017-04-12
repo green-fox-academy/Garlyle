@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Game extends JComponent implements KeyListener {
   Area tilemap;
@@ -20,7 +19,7 @@ public class Game extends JComponent implements KeyListener {
     enemies = new ArrayList<>();
     currentEnemy = null;
 
-    createEnemies(3, 10);
+    createEnemies(3, 1);
     System.out.println(hero);
     for (Monster enemy : enemies) {
       System.out.println(enemy);
@@ -92,11 +91,18 @@ public class Game extends JComponent implements KeyListener {
     super.paint(graphics);
 
     tilemap.draw(graphics);
-    hero.draw(graphics);
+    if (!hero.isDead()) {
+      hero.draw(graphics);
+    }
     for (Monster m : enemies) {
       m.draw(graphics);
     }
-    HUD.draw(graphics, 0, this.getHeight(), hero, currentEnemy);
+
+    if (!hero.isDead()) {
+      HUD.draw(graphics, 0, this.getHeight(), hero, currentEnemy);
+    } else {
+      HUD.gameOver(graphics, 0, this.getHeight());
+    }
   }
 
   @Override
@@ -111,6 +117,9 @@ public class Game extends JComponent implements KeyListener {
 
   @Override
   public void keyReleased(KeyEvent e) {
+    if (hero.isDead()) {
+      return;
+    }
     int x = hero.getMapCoordX();
     int y = hero.getMapCoordY();
     if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -125,8 +134,24 @@ public class Game extends JComponent implements KeyListener {
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       hero.turnHero(Hero.RIGHT);
       if (tilemap.isPassable(x + 1, y)) hero.move(1, 0);
+    } else if (e.getKeyCode() == KeyEvent.VK_SPACE && currentEnemy != null) {
+      battle();
     }
     checkForEnemies();
     repaint();
+  }
+
+  private void battle() {
+    hero.strike(currentEnemy);
+    if (!currentEnemy.isDead()) {
+      currentEnemy.strike(hero);
+      if (hero.isDead()) {
+        // Handle Game Over
+      }
+    } else {
+      hero.levelUp();
+      enemies.remove(currentEnemy);
+      currentEnemy = null;
+    }
   }
 }

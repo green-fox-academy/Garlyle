@@ -33,6 +33,17 @@ public class Character extends GameObject {
     mapPosY += y;
   }
 
+  public void strike(Character target) {
+    int sv = (sp + Dice.roll() * 2);
+    if (sv > target.dp) {
+      target.hp -= sv - target.dp;
+    }
+  }
+
+  public boolean isDead() {
+    return hp <= 0;
+  }
+
   @Override
   public String toString() {
     String s = getClass().getName() + " (LEVEL " + level + ") HP: " + hp + "/" + maxHp +

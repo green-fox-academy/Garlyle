@@ -5,8 +5,7 @@ public class HUD {
   final static int FONT_SIZE = 25;
 
   public static void draw(Graphics g, int x, int y, Character hero, Character enemy) {
-    g.setColor(Color.black);
-    g.fillRect(x, y - HEIGHT, 720, HEIGHT);
+    fillBackGround(g, x, y);
     g.setColor(Color.white);
     g.setFont(g.getFont().deriveFont((float)FONT_SIZE));
     if (hero != null) {
@@ -15,5 +14,17 @@ public class HUD {
     if (enemy != null) {
       g.drawString(enemy.toString(), 10, y - FONT_SIZE);
     }
+  }
+
+  public static void gameOver(Graphics g, int x, int y) {
+    fillBackGround(g, x, y);
+    g.setColor(Color.white);
+    g.setFont(g.getFont().deriveFont((float)FONT_SIZE));
+    g.drawString("Game Over", 300, y - HEIGHT / 2);
+  }
+
+  private static void fillBackGround(Graphics g, int x, int y) {
+    g.setColor(Color.black);
+    g.fillRect(x, y - HEIGHT, 720, HEIGHT);
   }
 }

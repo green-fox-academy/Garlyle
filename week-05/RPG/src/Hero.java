@@ -30,4 +30,11 @@ public class Hero extends Character {
       e.printStackTrace();
     }
   }
+
+  public void levelUp() {
+    maxHp += Dice.roll();
+    dp += Dice.roll();
+    sp += Dice.roll();
+    level++;
+  }
 }
