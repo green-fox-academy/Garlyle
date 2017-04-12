@@ -10,6 +10,9 @@ public class Hero extends Character {
 
   public Hero() {
     super("assets/hero-down.png");
+    maxHp = hp = 20 + 3 * Dice.roll();
+    dp = 2 * Dice.roll();
+    sp = 5 + Dice.roll();
   }
 
   public void turnHero(int direction) {

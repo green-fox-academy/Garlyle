@@ -17,7 +17,7 @@ public class Game extends JComponent implements KeyListener {
     hero = new Hero();
     enemies = new ArrayList<>();
 
-    createEnemies(3);
+    createEnemies(3, 1);
   }
 
   public static void main(String[] args) {
@@ -34,11 +34,11 @@ public class Game extends JComponent implements KeyListener {
     frame.addKeyListener(game);
   }
 
-  private void createEnemies(int num) {
+  private void createEnemies(int num, int level) {
     enemies.clear();
-    addEnemy(new Boss());
+    addEnemy(new Boss(level + (int)(Math.random() * 3)));
     for (int i = 0; i < num; i++) {
-      addEnemy(new Skeleton());
+      addEnemy(new Skeleton(level + (int)(Math.random() * 3)));
     }
   }
 

@@ -2,9 +2,16 @@ import java.awt.*;
 
 public class Character extends GameObject {
   int mapPosX, mapPosY;
+  int level;
+  int hp, maxHp;
+  int dp, sp;
+
   public Character(String filename) {
     super(filename, 0, 0);
     mapPosX = mapPosY = 0;
+    level = 1;
+    hp = maxHp = 0;
+    dp = sp = 0;
   }
 
   public void draw(Graphics g)
