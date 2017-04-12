@@ -9,6 +9,7 @@ public class Game extends JComponent implements KeyListener {
   Hero hero;
   ArrayList<Monster> enemies;
   Monster currentEnemy;
+  int currentLevel;
 
   public Game() {
     setPreferredSize(new Dimension(720, 720 + HUD.HEIGHT));
@@ -18,8 +19,9 @@ public class Game extends JComponent implements KeyListener {
     hero = new Hero();
     enemies = new ArrayList<>();
     currentEnemy = null;
+    currentLevel = 1;
 
-    createEnemies(3, 1);
+    createEnemies(3, currentLevel);
     System.out.println(hero);
     for (Monster enemy : enemies) {
       System.out.println(enemy);
@@ -145,13 +147,20 @@ public class Game extends JComponent implements KeyListener {
     hero.strike(currentEnemy);
     if (!currentEnemy.isDead()) {
       currentEnemy.strike(hero);
-      if (hero.isDead()) {
-        // Handle Game Over
-      }
     } else {
       hero.levelUp();
       enemies.remove(currentEnemy);
+      if (currentEnemy instanceof Boss) {
+        moveToNextLevel();
+      }
       currentEnemy = null;
     }
+  }
+
+  private void moveToNextLevel() {
+    hero.recoverRandomHealth();
+    hero.move(-hero.getMapCoordX(), -hero.getMapCoordY());
+    hero.turnHero(Hero.DOWN);
+    createEnemies((int)(Math.random() * 3 + 3), ++currentLevel);
   }
 }

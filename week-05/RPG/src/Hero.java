@@ -37,4 +37,20 @@ public class Hero extends Character {
     sp += Dice.roll();
     level++;
   }
+
+  public void recoverRandomHealth() {
+    int regenRoll = (int)(Math.random() * 10);
+    if (regenRoll == 1) {
+      recoverHealth(100);
+    } else if (regenRoll <= 5) {
+      recoverHealth(30);
+    } else {
+      recoverHealth(10);
+    }
+  }
+
+  private void recoverHealth(int percent) {
+    hp += maxHp * percent / 100;
+    if (hp > maxHp) hp = maxHp;
+  }
 }
