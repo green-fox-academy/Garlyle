@@ -8,6 +8,7 @@ public class GameLogic {
   ArrayList<Monster> enemies;
   Monster currentEnemy;
   int currentLevel;
+  boolean monstersMove;
 
   public GameLogic() {
     tilemap = new Area();
@@ -15,6 +16,7 @@ public class GameLogic {
     enemies = new ArrayList<>();
     currentEnemy = null;
     currentLevel = 1;
+    monstersMove = true;
 
     createEnemies(3, currentLevel);
   }
@@ -56,6 +58,10 @@ public class GameLogic {
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE && currentEnemy != null) {
       battle();
     }
+    monstersMove = !monstersMove;
+    if (monstersMove) {
+      moveEnemies();
+    }
     checkForEnemies();
   }
 
@@ -87,11 +93,40 @@ public class GameLogic {
     currentEnemy = null;
   }
 
+  private void moveEnemies() {
+    for (Monster enemy : enemies) {
+      int x, y;
+      int count = 0;
+      if (enemy.getMapCoordX() != hero.getMapCoordX() || enemy.getMapCoordY() != hero.getMapCoordY()) {
+        do {
+          x = enemy.getMapCoordX();
+          y = enemy.getMapCoordY();
+          int dir = (int)(Math.random() * 4);
+          if (dir == 0) {
+            x += 1;
+          } else if (dir == 1) {
+            x -= 1;
+          } else if (dir == 2) {
+            y += 1;
+          } else if (dir == 3) {
+            y -= 1;
+          }
+          if (++count > 5) {
+            break;
+          }
+        } while (!isPosValid(x, y));
+        if (count <= 5) {
+          enemy.move(x - enemy.getMapCoordX(), y - enemy.getMapCoordY());
+        }
+      }
+    }
+  }
+
   private boolean isPosValid(int x, int y) {
     if (!tilemap.isPassable(x, y)) {
       // Tile is Wall
       return false;
-    } else if (hero.getMapCoordX() == x || hero.getMapCoordY() == y) {
+    } else if (hero.getMapCoordX() == x && hero.getMapCoordY() == y) {
       // Hero is there
       return false;
     } else if (!enemies.isEmpty()) {
