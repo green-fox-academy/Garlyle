@@ -120,6 +120,7 @@ public class GameLogic {
   }
 
   private void moveToNextLevel() {
+    tilemap.randomize();
     hero.recoverRandomHealth();
     hero.move(-hero.getMapCoordX(), -hero.getMapCoordY());
     hero.turnHero(Hero.DOWN);

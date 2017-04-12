@@ -6,21 +6,9 @@ public class Area {
   Tile tileFloor, tileWall;
 
   final static int TILES = 10;
-  final static int[][] LEVEL = {
-    {0, 0, 0, 1, 0, 1, 0, 0, 0, 0},
-    {0, 0, 0, 1, 0, 1, 0, 1, 1, 0},
-    {0, 1, 1, 1, 0, 1, 0, 1, 1, 0},
-    {0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-    {1, 1, 1, 1, 0, 1, 1, 1, 1, 0},
-    {0, 1, 0, 1, 0, 0, 0, 0, 1, 0},
-    {0, 1, 0, 1, 0, 1, 1, 0, 1, 0},
-    {0, 0, 0, 0, 0, 1, 1, 0, 1, 0},
-    {0, 1, 1, 1, 0, 0, 0, 0, 1, 0},
-    {0, 0, 0, 1, 0, 1, 1, 0, 0, 0}
-  };
 
   public Area() {
-    tileset = LEVEL;
+    randomize();
     tileFloor = new TileFloor();
     tileWall = new TileWall();
   }
@@ -40,5 +28,9 @@ public class Area {
   public boolean isPassable(int x, int y) {
     if (x < 0 || x >= TILES || y < 0 || y >= TILES) return false;
     return tileset[y][x] == 0;
+  }
+
+  public void randomize() {
+    tileset = new RandomMapGenerator().generateMap(TILES, TILES);
   }
 }
