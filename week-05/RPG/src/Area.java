@@ -16,7 +16,7 @@ public class Area {
   public void draw(Graphics g) {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
-        if (tileset[j][i] == 0) {
+        if (tileset[i][j] == 0) {
           tileFloor.draw(g, i, j);
         } else {
           tileWall.draw(g, i, j);
@@ -27,7 +27,7 @@ public class Area {
 
   public boolean isPassable(int x, int y) {
     if (x < 0 || x >= width || y < 0 || y >= height) return false;
-    return tileset[y][x] == 0;
+    return tileset[x][y] == 0;
   }
 
   public void randomize() {
