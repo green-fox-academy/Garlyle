@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameObject {
+  final static int TILE_SIZE = 72;
+
   BufferedImage image;
   int posX, posY;
 
@@ -21,7 +23,7 @@ public class GameObject {
 
   public void draw(Graphics g) {
     if (image != null) {
-      g.drawImage(image, posX, posY, null);
+      g.drawImage(image, posX * TILE_SIZE, posY * TILE_SIZE, null);
     }
   }
 

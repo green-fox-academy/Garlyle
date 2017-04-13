@@ -1,8 +1,6 @@
 import java.awt.*;
 
 public class Tile extends GameObject {
-  final static int SIZE = 72;
-
   public Tile(String filename, int posX, int posY) {
     super(filename, posX, posY);
   }

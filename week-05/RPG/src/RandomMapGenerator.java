@@ -13,7 +13,6 @@ public class RandomMapGenerator {
   private int[][] randomMap;
   ArrayList<Dimension> frontier;
   int width, height;
-  int count = 0;
 
   public int[][] generateMap(int width, int height) {
     frontier = new ArrayList<>();

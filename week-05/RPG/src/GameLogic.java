@@ -3,6 +3,9 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class GameLogic {
+  final static int TILE_WIDTH = 10;
+  final static int TILE_HEIGHT = 10;
+
   Area tilemap;
   Hero hero;
   ArrayList<Monster> enemies;
@@ -11,7 +14,7 @@ public class GameLogic {
   boolean monstersMove;
 
   public GameLogic() {
-    tilemap = new Area();
+    tilemap = new Area(TILE_WIDTH, TILE_HEIGHT);
     hero = new Hero();
     enemies = new ArrayList<>();
     currentEnemy = null;
@@ -41,8 +44,8 @@ public class GameLogic {
     if (hero.isDead()) {
       return;
     }
-    int x = hero.getMapCoordX();
-    int y = hero.getMapCoordY();
+    int x = hero.getPosX();
+    int y = hero.getPosY();
     if (e.getKeyCode() == KeyEvent.VK_UP) {
       hero.turnHero(Hero.UP);
       if (tilemap.isPassable(x, y - 1)) hero.move(0, -1);
@@ -76,8 +79,8 @@ public class GameLogic {
   private void addEnemy(Monster enemy) {
     int x, y;
     do {
-      x = (int)(Math.random() * Area.TILES);
-      y = (int)(Math.random() * Area.TILES);
+      x = (int)(Math.random() * TILE_WIDTH);
+      y = (int)(Math.random() * TILE_HEIGHT);
     } while (!isPosValid(x, y));
     enemy.move(x, y);
     enemies.add(enemy);
@@ -85,7 +88,7 @@ public class GameLogic {
 
   private void checkForEnemies() {
     for (Monster enemy : enemies) {
-      if (enemy.getMapCoordX() == hero.getMapCoordX() && enemy.getMapCoordY() == hero.getMapCoordY()) {
+      if (enemy.getPosX() == hero.getPosX() && enemy.getPosY() == hero.getPosY()) {
         currentEnemy = enemy;
         return;
       }
@@ -97,10 +100,10 @@ public class GameLogic {
     for (Monster enemy : enemies) {
       int x, y;
       int count = 0;
-      if (enemy.getMapCoordX() != hero.getMapCoordX() || enemy.getMapCoordY() != hero.getMapCoordY()) {
+      if (enemy.getPosX() != hero.getPosX() || enemy.getPosY() != hero.getPosY()) {
         do {
-          x = enemy.getMapCoordX();
-          y = enemy.getMapCoordY();
+          x = enemy.getPosX();
+          y = enemy.getPosY();
           int dir = (int)(Math.random() * 4);
           if (dir == 0) {
             x += 1;
@@ -116,7 +119,7 @@ public class GameLogic {
           }
         } while (!isPosValid(x, y));
         if (count <= 5) {
-          enemy.move(x - enemy.getMapCoordX(), y - enemy.getMapCoordY());
+          enemy.setPosition(x, y);
         }
       }
     }
@@ -126,13 +129,13 @@ public class GameLogic {
     if (!tilemap.isPassable(x, y)) {
       // Tile is Wall
       return false;
-    } else if (hero.getMapCoordX() == x && hero.getMapCoordY() == y) {
+    } else if (hero.getPosX() == x && hero.getPosY() == y) {
       // Hero is there
       return false;
     } else if (!enemies.isEmpty()) {
       // Check if enemy is there
       for(Character c : enemies) {
-        if (c.getMapCoordX() == x && c.getMapCoordY() == y) {
+        if (c.getPosX() == x && c.getPosY() == y) {
           return false;
         }
       }
@@ -157,7 +160,7 @@ public class GameLogic {
   private void moveToNextLevel() {
     tilemap.randomize();
     hero.recoverRandomHealth();
-    hero.move(-hero.getMapCoordX(), -hero.getMapCoordY());
+    hero.setPosition(0, 0);
     hero.turnHero(Hero.DOWN);
     createEnemies((int)(Math.random() * 3 + 3), ++currentLevel);
   }

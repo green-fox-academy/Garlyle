@@ -1,36 +1,36 @@
 import java.awt.*;
 
-
 public class Area {
   int[][] tileset;
+  int width, height;
   Tile tileFloor, tileWall;
 
-  final static int TILES = 10;
-
-  public Area() {
-    randomize();
+  public Area(int width, int height) {
     tileFloor = new TileFloor();
     tileWall = new TileWall();
+    this.width = width;
+    this.height = height;
+    randomize();
   }
 
   public void draw(Graphics g) {
-    for (int i = 0; i < TILES; i++) {
-      for (int j = 0; j < TILES; j++) {
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
         if (tileset[j][i] == 0) {
-          tileFloor.draw(g, i * Tile.SIZE, j * Tile.SIZE);
+          tileFloor.draw(g, i, j);
         } else {
-          tileWall.draw(g, i * Tile.SIZE, j * Tile.SIZE);
+          tileWall.draw(g, i, j);
         }
       }
     }
   }
 
   public boolean isPassable(int x, int y) {
-    if (x < 0 || x >= TILES || y < 0 || y >= TILES) return false;
+    if (x < 0 || x >= width || y < 0 || y >= height) return false;
     return tileset[y][x] == 0;
   }
 
   public void randomize() {
-    tileset = new RandomMapGenerator().generateMap(TILES, TILES);
+    tileset = new RandomMapGenerator().generateMap(width, height);
   }
 }
