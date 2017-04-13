@@ -78,27 +78,74 @@ public class RandomMapGenerator {
   }
 
   private boolean check(int x, int y) {
-    int edgeState = 0;
     if (x > 0) {
       if (randomMap[x - 1][y] == FLOOR) {
-        edgeState++;
+        if (x < width - 1) {
+          if (y > 0) {
+            if (randomMap[x + 1][y - 1] == FLOOR) {
+              return false;
+            }
+          }
+          if (y < height - 1) {
+            if (randomMap[x + 1][y + 1] == FLOOR) {
+              return false;
+            }
+          }
+          return true;
+        }
       }
     }
     if (x < (width - 1)) {
       if (randomMap[x + 1][y] == FLOOR) {
-        edgeState++;
+        if (x > 0) {
+          if (y > 0) {
+            if (randomMap[x - 1][y - 1] == FLOOR) {
+              return false;
+            }
+          }
+          if (y < height - 1) {
+            if (randomMap[x - 1][y + 1] == FLOOR) {
+              return false;
+            }
+          }
+          return true;
+        }
       }
     }
     if (y > 0) {
       if (randomMap[x][y - 1] == FLOOR) {
-        edgeState++;
+        if (y < height - 1) {
+          if (x > 0) {
+            if (randomMap[x - 1][y + 1] == FLOOR) {
+              return false;
+            }
+          }
+          if (x < width - 1) {
+            if (randomMap[x + 1][y + 1] == FLOOR) {
+              return false;
+            }
+          }
+          return true;
+        }
       }
     }
     if (y < (height - 1)) {
       if (randomMap[x][y + 1] == FLOOR) {
-        edgeState++;
+        if (y > 0) {
+          if (x > 0) {
+            if (randomMap[x - 1][y - 1] == FLOOR) {
+              return false;
+            }
+          }
+          if (x < width - 1) {
+            if (randomMap[x + 1][y - 1] == FLOOR) {
+              return false;
+            }
+          }
+          return true;
+        }
       }
     }
-    return (edgeState == 1);
+    return false;
   }
 }
