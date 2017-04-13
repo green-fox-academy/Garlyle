@@ -79,7 +79,14 @@ public class GameLogic {
     enemies.clear();
     addEnemy(new Boss(level + (int)(Math.random() * 3)));
     for (int i = 0; i < num; i++) {
-      addEnemy(new Skeleton(level + (int)(Math.random() * 3)));
+      Monster newEnemy;
+      int enemyLevel = level + (int)(Math.random() * 3);
+      if (level > 2 && (int)(Math.random() * 2) == 0) {
+        newEnemy = new Ghost(enemyLevel);
+      } else {
+        newEnemy = new Skeleton(enemyLevel);
+      }
+      addEnemy(newEnemy);
     }
   }
 
@@ -121,7 +128,7 @@ public class GameLogic {
           } else if (dir == 3) {
             y -= 1;
           }
-          if (++count > 5) {
+          if (++count > 5 || enemy instanceof Ghost) {
             break;
           }
         } while (!isPosValid(x, y));
