@@ -20,7 +20,9 @@ public class HUD {
     fillBackGround(g, x, y);
     g.setColor(Color.white);
     g.setFont(g.getFont().deriveFont((float)FONT_SIZE));
-    g.drawString("Game Over", 300, y - HEIGHT / 2);
+    g.drawString("Game Over", 300, y - HEIGHT * 2 / 3);
+    g.setFont(g.getFont().deriveFont((float)FONT_SIZE * 2 / 3));
+    g.drawString("(Press SPACE to restart)", 10, y - HEIGHT / 3);
   }
 
   private static void fillBackGround(Graphics g, int x, int y) {

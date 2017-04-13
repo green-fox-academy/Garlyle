@@ -14,6 +14,10 @@ public class GameLogic {
   boolean monstersMove;
 
   public GameLogic() {
+    startNewGame();
+  }
+
+  private void startNewGame() {
     tilemap = new Area(TILE_WIDTH, TILE_HEIGHT);
     hero = new Hero();
     enemies = new ArrayList<>();
@@ -42,6 +46,9 @@ public class GameLogic {
 
   public void update(KeyEvent e) {
     if (hero.isDead()) {
+      if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        startNewGame();
+      }
       return;
     }
     int x = hero.getPosX();
