@@ -9,6 +9,7 @@ public class GameLogic {
   Area tilemap;
   Hero hero;
   ArrayList<Monster> enemies;
+  GameObject item;
   Monster currentEnemy;
   int currentLevel;
   boolean monstersMove;
@@ -20,6 +21,7 @@ public class GameLogic {
   private void startNewGame() {
     tilemap = new Area(TILE_WIDTH, TILE_HEIGHT);
     hero = new Hero();
+    item = null;
     enemies = new ArrayList<>();
     currentEnemy = null;
     currentLevel = 1;
@@ -35,6 +37,9 @@ public class GameLogic {
     }
     for (Monster m : enemies) {
       m.draw(graphics);
+    }
+    if (item != null) {
+      item.draw(graphics);
     }
 
     if (!hero.isDead()) {
@@ -73,6 +78,21 @@ public class GameLogic {
       moveEnemies();
     }
     checkForEnemies();
+    checkForItem();
+  }
+
+  private void checkForItem() {
+    if (item == null) {
+      return;
+    }
+    if (hero.getPosX() == item.posX && hero.getPosY() == item.posY) {
+      if (item instanceof Sword) {
+        ((Sword) item).upgrade(hero);
+      } else if (item instanceof Shield) {
+        ((Shield) item).upgrade(hero);
+      }
+      item = null;
+    }
   }
 
   private void createEnemies(int num, int level) {
@@ -177,5 +197,23 @@ public class GameLogic {
     hero.setPosition(0, 0);
     hero.turnHero(Hero.DOWN);
     createEnemies((int)(Math.random() * 3 + 3), ++currentLevel);
+    createItem();
+  }
+
+  private void createItem() {
+    int x, y;
+    do {
+      x = (int)(Math.random() * TILE_WIDTH);
+      y = (int)(Math.random() * TILE_HEIGHT);
+    } while (!isPosValid(x, y));
+
+    int type = (int)(Math.random() * 3);
+    if (type == 1) {
+      item = new Sword(x, y);
+    } else if (type == 2) {
+      item = new Shield(x, y);
+    } else {
+      item = null;
+    }
   }
 }
