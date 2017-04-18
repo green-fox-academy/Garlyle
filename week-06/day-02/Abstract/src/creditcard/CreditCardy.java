@@ -1,6 +1,6 @@
 package creditcard;
 
-interface CreditCardy {
+public interface CreditCardy {
   int getSumCVV();
   String getNameCardholder();
   String getCodeAccount();
