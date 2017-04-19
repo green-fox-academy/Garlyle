@@ -1,8 +1,6 @@
 package TwentyPlusOne;
 
 public class Card {
-  private int value;
-
   public enum Color { RED, BLACK }
   public enum Suit { CLUBS, HEARTS, SPADES, DIAMONDS }
   public enum Rank {

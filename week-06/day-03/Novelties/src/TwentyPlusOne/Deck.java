@@ -20,6 +20,9 @@ public class Deck {
   }
 
   private Card pull(int index) {
+    if (deckOfCards.isEmpty()) {
+      return null;
+    }
     Card drawnCard = deckOfCards.get(index);
     deckOfCards.remove(index);
     return drawnCard;
@@ -35,5 +38,9 @@ public class Deck {
 
   public Card pullRandom() {
     return pull((int)(Math.random() * deckOfCards.size()));
+  }
+
+  public String peek() {
+    return deckOfCards.get(0).toString();
   }
 }
