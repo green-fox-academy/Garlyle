@@ -2,3 +2,9 @@
 out
 *.iml
 *.xml
+
+.gradle
+/build/
+settings.gradle
+gradle
+!gradle-wrapper.jar
