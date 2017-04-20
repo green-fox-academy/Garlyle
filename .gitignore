@@ -4,7 +4,7 @@ out
 *.xml
 
 .gradle
-/build/
+build
 settings.gradle
 gradle
 !gradle-wrapper.jar
