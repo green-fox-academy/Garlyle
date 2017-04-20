@@ -6,5 +6,3 @@ out
 .gradle
 build
 settings.gradle
-gradle
-!gradle-wrapper.jar
