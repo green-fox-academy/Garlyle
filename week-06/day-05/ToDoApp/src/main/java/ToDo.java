@@ -23,9 +23,9 @@ public class ToDo {
   public String toString() {
     String s;
     if (completedAt == null) {
-      s = DONE;
-    } else {
       s = UNDONE;
+    } else {
+      s = DONE;
     }
     s += taskDescription;
 

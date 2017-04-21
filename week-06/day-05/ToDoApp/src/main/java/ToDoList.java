@@ -1,6 +1,7 @@
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class ToDoList {
 
   public void loadTasks() {
     try {
-      CSVReader reader = new CSVReader(new FileReader("tasks"), ';');
+      CSVReader reader = new CSVReader(new FileReader("tasks.csv"), ';');
       List<String[]> lines = reader.readAll();
       for (String[] line : lines) {
         int id = Integer.parseInt(line[0]);
@@ -41,23 +42,36 @@ public class ToDoList {
         }
         String description = line[1];
         LocalDateTime createdAt = LocalDateTime.parse(line[2]);
-        LocalDateTime completedAt = LocalDateTime.parse(line[3]);
+        LocalDateTime completedAt;
+        if (!line[3].equals("null")) {
+          completedAt = LocalDateTime.parse(line[3]);
+        } else {
+          completedAt = null;
+        }
         listOfTasks.put(id, new ToDo(description, createdAt, completedAt));
       }
     } catch (Exception ex) {
-      ex.printStackTrace();
+      if (ex instanceof FileNotFoundException) {
+        System.out.println("tasks.csv not found");
+      } else {
+        ex.printStackTrace();
+      }
     }
   }
 
   public void saveTasks() {
     try {
-      CSVWriter writer = new CSVWriter(new FileWriter("tasks"), ';', CSVWriter.NO_QUOTE_CHARACTER);
+      CSVWriter writer = new CSVWriter(new FileWriter("tasks.csv"), ';', CSVWriter.NO_QUOTE_CHARACTER);
       for (Map.Entry<Integer, ToDo> entry : listOfTasks.entrySet()) {
         String[] line = new String[4];
         line[0] = entry.getKey().toString();
         line[1] = entry.getValue().getTask();
         line[2] = entry.getValue().createdAt.toString();
-        line[3] = entry.getValue().completedAt.toString();
+        if (entry.getValue().completedAt == null) {
+          line[3] = "null";
+        } else {
+          line[3] = entry.getValue().completedAt.toString();
+        }
 
         writer.writeNext(line);
       }

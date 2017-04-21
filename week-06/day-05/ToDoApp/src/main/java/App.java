@@ -16,13 +16,13 @@ public class App {
     } else {
       try {
         if (args[0].equals("-a")) {
-          todoList.addTask(ToDo.UNDONE + args[1]);
+          todoList.addTask(args[1]);
         } else if (args[0].equals("-r")) {
-            todoList.removeTask(Integer.parseInt(args[1]) - 1);
+            todoList.removeTask(Integer.parseInt(args[1]));
         } else if (args[0].equals("-c")) {
-          todoList.checkTask(Integer.parseInt(args[1]) - 1);
+          todoList.checkTask(Integer.parseInt(args[1]));
         } else if (args[0].equals("-u")) {
-          todoList.updateTask(Integer.parseInt(args[1]) - 1, args[2]);
+          todoList.updateTask(Integer.parseInt(args[1]), args[2]);
         } else {
           System.out.println("Error: Unsupported argument");
           printUsage();
