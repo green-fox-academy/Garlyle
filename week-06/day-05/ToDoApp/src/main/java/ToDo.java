@@ -21,13 +21,7 @@ public class ToDo {
 
   @Override
   public String toString() {
-    String s;
-    if (completedAt == null) {
-      s = UNDONE;
-    } else {
-      s = DONE;
-    }
-    s += taskDescription;
+    String s = ((completed())? DONE : UNDONE) + taskDescription;
 
     return s;
   }
@@ -44,6 +38,10 @@ public class ToDo {
     completedAt = LocalDateTime.now();
   }
 
+  public boolean completed() {
+    return (completedAt != null);
+  }
+
   public LocalDateTime complitionTime() {
     if (completedAt == null) {
       return null;
@@ -55,5 +53,5 @@ public class ToDo {
       int minute = completedAt.getMinute() - createdAt.getMinute();
       return LocalDateTime.of(year, month, day, hour, minute);
     }
-    }
+  }
 }
