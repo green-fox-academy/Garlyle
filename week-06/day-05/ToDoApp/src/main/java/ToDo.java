@@ -13,16 +13,34 @@ public class ToDo {
     createdAt = LocalDateTime.now();
   }
 
-  public String getTask() {
-    return taskDescription;
+  public ToDo(String description, LocalDateTime createdAt, LocalDateTime completedAt) {
+    taskDescription = description;
+    this.createdAt = createdAt;
+    this.completedAt = completedAt;
+  }
+
+  @Override
+  public String toString() {
+    String s;
+    if (completedAt == null) {
+      s = DONE;
+    } else {
+      s = UNDONE;
+    }
+    s += taskDescription;
+
+    return s;
   }
 
   public void setTask(String description) {
     this.taskDescription = description;
   }
 
+  public String getTask() {
+    return taskDescription;
+  }
+
   public void check() {
-    taskDescription = DONE + taskDescription.substring(UNDONE.length());
     completedAt = LocalDateTime.now();
   }
 

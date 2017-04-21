@@ -20,7 +20,9 @@ public class App {
         } else if (args[0].equals("-r")) {
             todoList.removeTask(Integer.parseInt(args[1]) - 1);
         } else if (args[0].equals("-c")) {
-            todoList.checkTask(Integer.parseInt(args[1]) - 1);
+          todoList.checkTask(Integer.parseInt(args[1]) - 1);
+        } else if (args[0].equals("-u")) {
+          todoList.updateTask(Integer.parseInt(args[1]) - 1, args[2]);
         } else {
           System.out.println("Error: Unsupported argument");
           printUsage();
