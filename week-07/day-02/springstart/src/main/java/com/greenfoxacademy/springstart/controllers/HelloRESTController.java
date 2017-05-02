@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class HelloRESTController {
-  private final AtomicLong counter = new AtomicLong();
   private final HashMap<String, AtomicLong> greetingTable = new HashMap<>();
 
   @RequestMapping("/greeting")
@@ -18,7 +17,6 @@ public class HelloRESTController {
       greetingTable.put(name, new AtomicLong());
     }
     long value = greetingTable.get(name).incrementAndGet();
-    //long value = counter.incrementAndGet();
     Greeting hi = new Greeting(value, "Hello " + name + "!");
     return hi;
   }
