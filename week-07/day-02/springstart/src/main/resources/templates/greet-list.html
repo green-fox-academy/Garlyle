@@ -6,9 +6,9 @@
 </head>
 <body>
     <table>
-        <tr th:each="e : ${entries}">
-            <td th:text="${e.text}" th:style="'font-size: ' + ${e.size} + 'px; color: ' + ${e.color}"></td>
-        </tr>
+        <div th:each="e : ${entries}">
+            <div th:text="${e.text}" th:style="'font-size: ' + ${e.size} + 'px; color: ' + ${e.color}"/>
+        </div>
     </table>
 </body>
 </html>

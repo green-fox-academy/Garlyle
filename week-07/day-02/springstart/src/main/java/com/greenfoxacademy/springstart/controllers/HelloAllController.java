@@ -17,17 +17,17 @@ public class HelloAllController {
   @RequestMapping("/web/world")
   public String helloAll(Model model) {
     ArrayList<Message> entries = new ArrayList<>();
-    Random rand = new Random();
     for (String line : hellos) {
-      long value = rand.nextInt(22) + 10;
-      int r, g, b;
-      r = rand.nextInt(256);
-      g = rand.nextInt(256);
-      b = rand.nextInt(256);
-      Message msg = new Message(line, String.format("#%02x%02x%02x", r, g, b), value);
+      long value = new Random().nextInt(22) + 20;
+      Message msg = new Message(line, getRandomColor(), value);
       entries.add(msg);
     }
     model.addAttribute("entries", entries);
     return "greet-list";
+  }
+
+  public String getRandomColor() {
+    Random rand = new Random();
+    return String.format("#%02x%02x%02x", rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
   }
 }
