@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Exercise 2</title>
+    <title>Exercise 3</title>
 </head>
 <body>
 <h1>Account Details</h1>
 <div th:object="${account}">
     <p th:text="'Name: ' + *{name}">Name</p>
-    <p th:text="'Balance: ' + *{#numbers.formatDecimal(balance, 3, 2)}">Balance</p>
+    <p th:text="'Balance: ' + *{#numbers.formatDecimal(balance, 3, 2)} + ' Zebra'">Balance</p>
     <p th:text="'Type: ' + *{animalType}">Type</p>
 </div>
 </body>
