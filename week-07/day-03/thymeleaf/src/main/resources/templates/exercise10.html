@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Exercise 10</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>Type</th>
+        <th>King</th>
+        <th>Alignment</th>
+        <th>Topup</th>
+    </tr>
+    <tr th:each="a, iter : ${accounts}" th:style="${a.isKing()}?'color:#FF8800'">
+        <td th:text="${iter.index} + 1">Index</td>
+        <td th:text="${a.name}">Name</td>
+        <td th:text="${a.balance}">Balance</td>
+        <td th:text="${a.animalType}">Type</td>
+        <td th:text="${a.isKing()}? 'Yes' : 'No'">King</td>
+        <td th:switch="${a.isEvil()}">
+            <span th:case="true">Bad Guy</span>
+            <span th:case="false">Good One</span>
+        </td>
+        <td>
+            <form action="/topup">
+                <input type="hidden" name="index" th:value="${iter.index}"/>
+                <input type="submit" value="Top Up" />
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

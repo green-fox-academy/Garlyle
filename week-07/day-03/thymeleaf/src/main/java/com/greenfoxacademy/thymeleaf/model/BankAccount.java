@@ -18,4 +18,9 @@ public class BankAccount {
     this.animalType = animalType;
     isEvil = isKing = false;
   }
+
+  public void increaseBalance(int amount) {
+    Integer value = Integer.parseInt(balance) + 10;
+    balance = value.toString();
+  }
 }
