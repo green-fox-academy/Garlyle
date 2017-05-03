@@ -11,6 +11,6 @@ public class Exercise3 {
   public String getBankAccountWithDecimals(Model model) {
     BankAccount account = new BankAccount("Simba", "2000", "lion");
     model.addAttribute("account", account);
-    return "exercise3"it di;
+    return "exercise3";
   }
 }
