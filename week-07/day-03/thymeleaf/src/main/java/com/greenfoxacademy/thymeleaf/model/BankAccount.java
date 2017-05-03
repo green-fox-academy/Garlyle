@@ -2,21 +2,25 @@ package com.greenfoxacademy.thymeleaf.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BankAccount {
   String name;
   String balance;
   String animalType;
-  boolean isKing;
-  boolean isEvil;
+  boolean king;
+  boolean evil;
 
   public BankAccount(String name, String balance, String animalType) {
     this.name = name;
     this.balance = balance;
     this.animalType = animalType;
-    isEvil = isKing = false;
+    evil = king = false;
   }
 
   public void increaseBalance(int amount) {
