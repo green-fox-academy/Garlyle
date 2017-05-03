@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Exercise 6</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>Type</th>
+    </tr>
+    <tr th:each="a, iter : ${accounts}">
+        <td th:text="${iter.index} + 1">Index</td>
+        <td th:text="${a.name}">Name</td>
+        <td th:text="${a.balance}">Balance</td>
+        <td th:text="${a.animalType}">Type</td>
+    </tr>
+</table>
+</body>
+</html>
