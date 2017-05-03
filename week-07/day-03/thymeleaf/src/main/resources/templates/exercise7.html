@@ -13,13 +13,13 @@
         <th>Type</th>
         <th>King</th>
     </tr>
-    <tr th:each="a, iter : ${accounts}" th:style="${#strings.equals(a.animalType, 'King')}?'color:#FF8800'">
+    <tr th:each="a, iter : ${accounts}" th:style="${a.isKing()}?'color:#FF8800'">
         <td th:text="${iter.index} + 1">Index</td>
         <td th:text="${a.name}">Name</td>
         <td th:text="${a.balance}">Balance</td>
         <td th:text="${a.animalType}">Type</td>
-        <td th:if="${#strings.equals(a.animalType, 'King')}">Yes</td>
-        <td th:unless="${#strings.equals(a.animalType, 'King')}">No</td>
+        <td th:if="${a.isKing()}">Yes</td>
+        <td th:unless="${a.isKing()}">No</td>
     </tr>
 </table>
 </body>
