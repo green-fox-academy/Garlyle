@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class MainConfig {
+  @Bean
   public Fox DefaultFox() {
     Fox myFox = new Fox("Mr. Fox", "pizza", "lemonade");
     myFox.learnTrick("write HTML");
@@ -14,7 +15,6 @@ class MainConfig {
     return myFox;
   }
 
-  @Bean
   public Fox newFox() {
     return new Fox("Mr. Green", "salad", "water");
   }
