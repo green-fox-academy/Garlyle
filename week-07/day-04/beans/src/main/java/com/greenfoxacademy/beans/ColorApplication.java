@@ -5,7 +5,6 @@ import com.greenfoxacademy.beans.interfaces.MyColor;
 import com.greenfoxacademy.beans.model.BlueColor;
 import com.greenfoxacademy.beans.model.GreenColor;
 import com.greenfoxacademy.beans.model.RedColor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
