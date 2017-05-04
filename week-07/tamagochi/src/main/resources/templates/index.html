@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
         <title>Programmer Fox Club</title>
@@ -9,11 +9,11 @@
             <li><a href="index.html">Information</a></li>
         </ul>
         <img src="images/greenfox.png"/>
-        <p>This is Mr. Fox. Currently living on pizza and lemonade. He knows 2 tricks.</p>
+        <p th:text="'This is ' + ${fox.name} + '. Currently living on ' + ${fox.food} + ' and ' + ${fox.drink} + '. He knows ' + ${fox.knownTricks()} + ' tricks.'">Info</p>
         <h1>Known Tricks</h1>
-        <ul>
-            <li>write HTML</li>
-            <li>code in Java</li>
+        <p th:if="${fox.knownTricks()} == 0">You know no tricks yet. Go and learn some.</p>
+        <ul th:unless="${fox.knownTricks()} == 0"  th:each="trick : ${fox.tricks}">
+            <li th:text="${trick}">trick</li>
         </ul>
     </body>
 </html>
