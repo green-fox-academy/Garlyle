@@ -9,9 +9,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @Controller
 public class MainController {
+  final String[] foods = {"salad", "chicken", "pizza", "sushi", "human"};
+  final String[] drinks = {"water", "lemonda", "beer", "gasoline"};
+
   @Autowired
   Fox fox;
 
@@ -31,20 +35,8 @@ public class MainController {
 
   @RequestMapping("/nutritionStore")
   public String store(Model model) {
-    ArrayList<String> foods = new ArrayList<>();
-    foods.add("pizza");
-    foods.add("salad");
-    foods.add("chicken");
-    foods.add("sushi");
-    foods.add("human");
-    model.addAttribute("foods", foods);
-
-    ArrayList<String> drinks = new ArrayList<>();
-    drinks.add("water");
-    drinks.add("lemonade");
-    drinks.add("beer");
-    drinks.add("gasoline");
-    model.addAttribute("drinks", drinks);
+    model.addAttribute("foods", Arrays.asList(foods));
+    model.addAttribute("drinks", Arrays.asList(drinks));
     model.addAttribute("fox", fox);
 
     return "store";
