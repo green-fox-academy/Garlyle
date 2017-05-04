@@ -5,8 +5,10 @@
         <title>Programmer Fox Club</title>
     </head>
     <body>
-        <ul>
-            <li><a href="index.html">Information</a></li>
+        <ul >
+            <li th:each="link: ${nav}">
+                <a th:href="${link.address}" th:text="${link.text}"/>
+            </li>
         </ul>
         <img src="images/greenfox.png"/>
         <p th:text="'This is ' + ${fox.name} + '. Currently living on ' + ${fox.food} +
