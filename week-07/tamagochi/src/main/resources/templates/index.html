@@ -15,8 +15,10 @@
                     ' and ' + ${fox.drink} + '. He knows ' + ${fox.knownTricks()} + ' tricks.'">Info</p>
         <h1>Known Tricks</h1>
         <p th:if="${fox.knownTricks()} == 0">You know no tricks yet. Go and learn some.</p>
-        <ul th:unless="${fox.knownTricks()} == 0"  th:each="trick : ${fox.tricks}">
-            <li th:text="${trick}">trick</li>
+        <ul th:unless="${fox.knownTricks()} == 0">
+            <li th:each="trick : ${fox.tricks}">
+                <span th:text="${trick}">trick</span>
+            </li>
         </ul>
     </body>
 </html>
