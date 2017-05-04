@@ -31,6 +31,29 @@ public class MainController {
 
   @RequestMapping("/nutritionStore")
   public String store(Model model) {
+    ArrayList<String> foods = new ArrayList<>();
+    foods.add("pizza");
+    foods.add("salad");
+    foods.add("chicken");
+    foods.add("sushi");
+    foods.add("human");
+    model.addAttribute("foods", foods);
+
+    ArrayList<String> drinks = new ArrayList<>();
+    drinks.add("water");
+    drinks.add("lemonade");
+    drinks.add("beer");
+    drinks.add("gasoline");
+    model.addAttribute("drinks", drinks);
+    model.addAttribute("fox", fox);
+
     return "store";
+  }
+
+  @RequestMapping("/updateNutrions")
+  public String updateNutrions(String food, String drink) {
+    fox.updateDiet(food, drink);
+
+    return "redirect:/";
   }
 }

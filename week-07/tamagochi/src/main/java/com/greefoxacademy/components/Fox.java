@@ -25,4 +25,9 @@ public class Fox {
   public int knownTricks() {
     return tricks.size();
   }
+
+  public void updateDiet(String food, String drink) {
+    this.food = food;
+    this.drink = drink;
+  }
 }

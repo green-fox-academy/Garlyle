@@ -10,14 +10,14 @@
                 <a th:href="${link.address}" th:text="${link.text}"/>
             </li>
         </ul>
-    <form>
+    <form action="/updateNutrions" th:object="${fox}">
         Food
-        <select>
-            <option>salad</option>
+        <select th:field="*{food}">
+            <option th:each="food : ${foods}" th:value="${food}" th:text="${food}">salad</option>
         </select>
         Drink
-        <select>
-            <option>water</option>
+        <select th:field="*{drink}">
+            <option th:each="drink : ${drinks}" th:value="${drink}" th:text="${drink}">salad</option>
         </select>
         <input type="submit" value="Change"/>
     </form>
