@@ -1,5 +1,6 @@
 package com.greefoxacademy.controller;
 
+import com.greefoxacademy.components.Action;
 import com.greefoxacademy.components.Fox;
 import com.greefoxacademy.components.NavLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 @Controller
 public class MainController {
@@ -21,6 +23,7 @@ public class MainController {
 
   @Autowired
   Fox fox;
+  ArrayList<Action> history = new ArrayList<>();
 
   @ModelAttribute
   public void addAttributes(Model model) {
@@ -28,9 +31,11 @@ public class MainController {
     links.add(new NavLink("/", "Information"));
     links.add(new NavLink("/nutritionStore", "Nutrion Store"));
     links.add(new NavLink("/trickCenter", "Trick Center"));
+    links.add(new NavLink("/actionHistory", "Action History"));
     model.addAttribute("nav", links);
 
     model.addAttribute("fox", fox);
+    model.addAttribute("history", history);
   }
 
   @RequestMapping("/")
@@ -67,5 +72,11 @@ public class MainController {
     }
 
     return "redirect:/";
+  }
+
+  @RequestMapping("/actionHistory")
+  public String showHistory(Model model) {
+    history.add(new Action(new Date(), "Watched Action history"));
+    return "history";
   }
 }

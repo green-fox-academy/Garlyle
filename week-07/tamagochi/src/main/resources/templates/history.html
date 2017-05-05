@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Programmer Fox Club</title>
+    </head>
+    <body>
+    <ul >
+        <li th:each="link: ${nav}">
+            <a th:href="${link.address}" th:text="${link.text}"/>
+        </li>
+    </ul>
+    <br/>
+    <ul>
+        <li th:each="action : ${history}">
+            <span th:text="${action.postTime} + ':' + ${action.message}"/>
+        </li>
+    </ul>
+    </body>
+</html>
