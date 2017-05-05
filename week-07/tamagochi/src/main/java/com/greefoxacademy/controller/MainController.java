@@ -15,6 +15,8 @@ import java.util.Arrays;
 public class MainController {
   final String[] foods = {"salad", "chicken", "pizza", "sushi", "human"};
   final String[] drinks = {"water", "lemonda", "beer", "gasoline"};
+  final String[] tricks = {"write HTML", "make coffee", "code in Java", "do a barrel roll",
+                          "hack the bank", "eat beans", "throw 180 on darts", "salute"};
 
   @Autowired
   Fox fox;
@@ -24,12 +26,14 @@ public class MainController {
     ArrayList<NavLink> links = new ArrayList<>();
     links.add(new NavLink("/", "Information"));
     links.add(new NavLink("/nutritionStore", "Nutrion Store"));
+    links.add(new NavLink("/trickCenter", "Trick Center"));
     model.addAttribute("nav", links);
+
+    model.addAttribute("fox", fox);
   }
 
   @RequestMapping("/")
   public String index(Model model) {
-    model.addAttribute("fox", fox);
     return "index";
   }
 
@@ -37,7 +41,6 @@ public class MainController {
   public String store(Model model) {
     model.addAttribute("foods", Arrays.asList(foods));
     model.addAttribute("drinks", Arrays.asList(drinks));
-    model.addAttribute("fox", fox);
 
     return "store";
   }
@@ -45,6 +48,22 @@ public class MainController {
   @RequestMapping("/updateNutrions")
   public String updateNutrions(String food, String drink) {
     fox.updateDiet(food, drink);
+
+    return "redirect:/";
+  }
+
+  @RequestMapping("/trickCenter")
+  public String trickCenter(Model model) {
+    model.addAttribute("tricks", Arrays.asList(tricks));
+
+    return "trick";
+  }
+
+  @RequestMapping("/learnTrick")
+  public String learnTrick(String trick) {
+    if (trick != null) {
+      fox.learnTrick(trick);
+    }
 
     return "redirect:/";
   }
