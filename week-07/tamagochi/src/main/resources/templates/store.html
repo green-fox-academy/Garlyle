@@ -3,19 +3,20 @@
     <head>
         <meta charset="UTF-8"/>
         <title>Programmer Fox Club</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
     </head>
     <body>
-        <ul >
+        <ul id="navlinks">
             <li th:each="link: ${nav}">
                 <a th:href="${link.address}" th:text="${link.text}"/>
             </li>
         </ul>
     <form action="/updateNutrions" th:object="${fox}">
-        Food
+        <label>Food</label>
         <select th:field="*{food}">
             <option th:each="food : ${foods}" th:value="${food}" th:text="${food}">salad</option>
         </select>
-        Drink
+        <label>Drink</label>
         <select th:field="*{drink}">
             <option th:each="drink : ${drinks}" th:value="${drink}" th:text="${drink}">salad</option>
         </select>
