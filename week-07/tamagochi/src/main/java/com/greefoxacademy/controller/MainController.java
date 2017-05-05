@@ -38,6 +38,10 @@ public class MainController {
     model.addAttribute("history", history);
   }
 
+  private void postAction(String message) {
+    history.add(new Action(new Date(), message));
+  }
+
   @RequestMapping("/")
   public String index(Model model) {
     return "index";
@@ -54,6 +58,7 @@ public class MainController {
   @RequestMapping("/updateNutrions")
   public String updateNutrions(String food, String drink) {
     fox.updateDiet(food, drink);
+    postAction("Changed diet to " + food + " and " + drink);
 
     return "redirect:/";
   }
@@ -67,16 +72,14 @@ public class MainController {
 
   @RequestMapping("/learnTrick")
   public String learnTrick(String trick) {
-    if (trick != null) {
-      fox.learnTrick(trick);
-    }
+    fox.learnTrick(trick);
+    postAction("Learned how to " + trick);
 
     return "redirect:/";
   }
 
   @RequestMapping("/actionHistory")
   public String showHistory(Model model) {
-    history.add(new Action(new Date(), "Watched Action history"));
     return "history";
   }
 }
