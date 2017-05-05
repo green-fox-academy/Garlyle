@@ -13,7 +13,7 @@
     <br/>
     <ul>
         <li th:each="action : ${history}">
-            <span th:text="${action.postTime} + ':' + ${action.message}"/>
+            <span th:text="${#dates.format(action.postTime, 'yyyy MMMM dd. HH:mm:ss')} + ' : ' + ${action.message}"/>
         </li>
     </ul>
     </body>

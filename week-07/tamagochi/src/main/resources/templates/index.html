@@ -23,7 +23,7 @@
         <h1>Latest Activity</h1>
         <ul>
             <li th:each="action, iter : ${history}" th:if="${iter.index &lt; 5}">
-                <span th:text="${action.postTime} + ':' + ${action.message}"/>
+                <span th:text="${#dates.format(action.postTime, 'yyyy MMMM dd. HH:mm:ss')} + ' : ' + ${action.message}"/>
             </li>
         </ul>
     </body>
