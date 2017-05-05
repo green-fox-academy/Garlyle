@@ -10,7 +10,8 @@
                 <a th:href="${link.address}" th:text="${link.text}"/>
             </li>
         </ul>
-        <form action="/learnTrick" th:object="${fox}">
+        <p th:if="${fox.knownTricks() == #lists.size(tricks)}">No tricks to learn</p>
+        <form th:unless="${fox.knownTricks() == #lists.size(tricks)}" action="/learnTrick" th:object="${fox}">
             Tricks
             <select name="trick">
                 <option th:unless="${#lists.contains(fox.tricks, trick)}"

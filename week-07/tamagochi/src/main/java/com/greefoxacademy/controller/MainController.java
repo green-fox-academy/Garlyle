@@ -16,7 +16,8 @@ public class MainController {
   final String[] foods = {"salad", "chicken", "pizza", "sushi", "human"};
   final String[] drinks = {"water", "lemonda", "beer", "gasoline"};
   final String[] tricks = {"write HTML", "make coffee", "code in Java", "do a barrel roll",
-                          "hack the bank", "eat beans", "throw 180 on darts", "salute"};
+                          "hack the bank", "eat @beans", "play darts", "salute", "moonwalk",
+                          "write CV", "draw fractal trees"};
 
   @Autowired
   Fox fox;
