@@ -3,7 +3,8 @@ package com.greefoxacademy.config;
 import com.greefoxacademy.components.Fox;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+
+import java.util.ArrayList;
 
 @Configuration
 class MainConfig {
@@ -17,11 +18,19 @@ class MainConfig {
   }
 
   @Bean
-  @Primary
   public Fox CyberDragon() {
     Fox myDragon = new Fox("Cyber Dragon", "images/cyberdragon.png", "sushi", "gasoline");
 
     return myDragon;
+  }
+
+  @Bean
+  public ArrayList<Fox> makeList() {
+    ArrayList<Fox> foxes = new ArrayList<>();
+    foxes.add(DefaultFox());
+    foxes.add(CyberDragon());
+
+    return foxes;
   }
 
   public Fox newFox() {

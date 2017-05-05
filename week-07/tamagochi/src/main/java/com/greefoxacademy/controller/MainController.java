@@ -22,16 +22,22 @@ public class MainController {
                           "write CV", "draw fractal trees"};
 
   @Autowired
+  ArrayList<Fox> foxes;
   Fox fox;
   ArrayList<Action> history = new ArrayList<>();
 
   @ModelAttribute
   public void addAttributes(Model model) {
+    if (fox == null) {
+      fox = foxes.get(0);
+    }
+
     ArrayList<NavLink> links = new ArrayList<>();
     links.add(new NavLink("/", "Information"));
     links.add(new NavLink("/nutritionStore", "Nutrion Store"));
     links.add(new NavLink("/trickCenter", "Trick Center"));
     links.add(new NavLink("/actionHistory", "Action History"));
+    links.add(new NavLink("/switchPet", "Switch pet"));
     model.addAttribute("nav", links);
 
     model.addAttribute("fox", fox);
@@ -59,7 +65,7 @@ public class MainController {
   @RequestMapping("/updateNutrions")
   public String updateNutrions(String food, String drink) {
     fox.updateDiet(food, drink);
-    postAction("Changed diet to " + food + " and " + drink);
+    postAction(fox.getName() + " changed diet to " + food + " and " + drink);
 
     return "redirect:/";
   }
@@ -74,7 +80,7 @@ public class MainController {
   @RequestMapping("/learnTrick")
   public String learnTrick(String trick) {
     fox.learnTrick(trick);
-    postAction("Learned how to " + trick);
+    postAction(fox.getName() + " learned how to " + trick);
 
     return "redirect:/";
   }
@@ -84,5 +90,19 @@ public class MainController {
     model.addAttribute("history", history);
 
     return "history";
+  }
+
+  @RequestMapping("/switchPet")
+  public String showPetList(Model model) {
+    model.addAttribute("list", foxes);
+
+    return "switch";
+  }
+
+  @RequestMapping("/switch")
+  public String changePet(int index) {
+    fox = foxes.get(index);
+
+    return "redirect:/";
   }
 }

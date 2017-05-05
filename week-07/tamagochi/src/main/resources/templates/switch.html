@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Programmer Fox Club</title>
+        <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    </head>
+    <body>
+        <ul id="navlinks">
+            <li th:each="link: ${nav}">
+                <a th:href="${link.address}" th:text="${link.text}"/>
+            </li>
+        </ul>
+        <form action="/switch" th:each="pet, iter :${list}" id="select">
+            <img th:src="${pet.image}"/>
+            <input type="hidden" name="index" th:value="${iter.index}"/>
+            <input type="submit" th:value="${pet.name}"/>
+        </form>
+    </body>
+</html>
