@@ -20,5 +20,11 @@
                 <span th:text="${trick}">trick</span>
             </li>
         </ul>
+        <h1>Latest Activity</h1>
+        <ul>
+            <li th:each="action, iter : ${history}" th:if="${iter.index &lt; 5}">
+                <span th:text="${action.postTime} + ':' + ${action.message}"/>
+            </li>
+        </ul>
     </body>
 </html>

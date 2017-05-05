@@ -35,15 +35,16 @@ public class MainController {
     model.addAttribute("nav", links);
 
     model.addAttribute("fox", fox);
-    model.addAttribute("history", history);
   }
 
   private void postAction(String message) {
-    history.add(new Action(new Date(), message));
+    history.add(0, new Action(new Date(), message));
   }
 
   @RequestMapping("/")
   public String index(Model model) {
+    model.addAttribute("history", history);
+
     return "index";
   }
 
@@ -80,6 +81,8 @@ public class MainController {
 
   @RequestMapping("/actionHistory")
   public String showHistory(Model model) {
+    model.addAttribute("history", history);
+
     return "history";
   }
 }
