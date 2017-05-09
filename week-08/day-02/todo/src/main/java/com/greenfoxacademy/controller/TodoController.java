@@ -12,5 +12,5 @@ public class TodoController {
   @ResponseBody
   public String list(Model model) {
     return "This is my first todo";
-itcd   }
+  }
 }
