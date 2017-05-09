@@ -1,5 +1,6 @@
 package com.greenfoxacademy.controller;
 
+import com.greenfoxacademy.model.Todo;
 import com.greenfoxacademy.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,5 +30,17 @@ public class TodoController {
       model.addAttribute("todos", repository.findAll());
     }
     return "todo";
+  }
+
+  @RequestMapping("/add")
+  public String add(Model model) {
+    return "add";
+  }
+
+  @RequestMapping("/addNew")
+  public String addNew(String title) {
+    repository.save(new Todo(title));
+
+    return "redirect:/todo/";
   }
 }
