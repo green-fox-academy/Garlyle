@@ -18,8 +18,6 @@ public class Todo2Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		repository.save(new Todo("Finish Green Fox Academy"));
-		repository.save(new Todo("Develop a Video Game"));
-		repository.save(new Todo("Earn money"));
-	}
+    System.out.println(repository.toString());
+  }
 }
