@@ -1,6 +1,8 @@
 package com.greenfoxacademy.model;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Todo {
   @Id
@@ -18,6 +22,6 @@ public class Todo {
   boolean isDone = false;
 
   public Todo(String name) {
-    title = "name";
+    title = name;
   }
 }
