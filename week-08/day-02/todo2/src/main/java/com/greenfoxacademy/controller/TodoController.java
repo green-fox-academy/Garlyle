@@ -56,7 +56,7 @@ public class TodoController {
   }
 
   @PostMapping("/save")
-  public String save(Todo item) {
+  public String save(@ModelAttribute Todo item) {
     repository.save(item);
     return("redirect:/todo/");
   }
