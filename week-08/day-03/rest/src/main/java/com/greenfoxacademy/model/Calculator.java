@@ -1,5 +1,7 @@
 package com.greenfoxacademy.model;
 
+import java.util.List;
+
 public class Calculator {
   public int result;
   public Calculator(String what, int until) {
@@ -15,11 +17,5 @@ public class Calculator {
         result += i;
       }
     }
-
-//    result = (what == "factor")? 1 : 0;
-//    for (int i = 1; i <= until; i++) {
-//      if (what == "sum") result += i;
-//      if (what == "factor") result *= i;
-//    }
   }
 }
