@@ -1,14 +1,18 @@
 package com.greenfoxacademy.controller;
 
-import com.greenfoxacademy.model.AppendA;
-import com.greenfoxacademy.model.Doubling;
+import com.greenfoxacademy.model.*;
 import com.greenfoxacademy.model.Exception;
-import com.greenfoxacademy.model.Greet;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RequestController {
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public Exception noNumberException() {
+    return new Exception("Please provide a number!");
+  }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
   public Exception exception(MissingServletRequestParameterException ex) {
@@ -34,5 +38,10 @@ public class RequestController {
   @GetMapping("/appenda/{appendable}")
   public AppendA appenda(@PathVariable String appendable) {
     return new AppendA(appendable);
+  }
+
+  @PostMapping("/dountil/{what}")
+  public Calculator dountil(@PathVariable String what, @RequestBody MyNumber number) {
+    return new Calculator(what, number.until);
   }
 }
