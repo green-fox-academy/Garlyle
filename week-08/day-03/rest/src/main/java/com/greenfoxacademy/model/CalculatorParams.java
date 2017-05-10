@@ -1,16 +1,17 @@
 package com.greenfoxacademy.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CalculatorParams {
-  public String what;
-  public List<Integer> numbers;
-
-  public CalculatorParams() {
-  }
-
-  public CalculatorParams(String what, List<Integer> numbers) {
-    this.what = what;
-    this.numbers = numbers;
-  }
+  String what;
+  List<Integer> numbers;
 }

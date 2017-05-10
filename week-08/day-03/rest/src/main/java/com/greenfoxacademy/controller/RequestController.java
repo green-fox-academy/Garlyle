@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.*;
 public class RequestController {
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public Exception noNumberException(HttpMessageNotReadableException ex) {
-    if (ex.getMessage().contains("CalculatorParams")) {
-      return new Exception("Please provide what to do with the numbers!");
-    } else {
-      return new Exception("Please provide a number!");
-    }
+  public Exception noNumberException() {
+    return new Exception("Please provide a number!");
   }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
@@ -46,14 +42,6 @@ public class RequestController {
 
   @PostMapping("/dountil/{what}")
   public Calculator dountil(@PathVariable String what, @RequestBody MyNumber number) {
-    return new Calculator(what, number.until);
-  }
-
-  @PostMapping("/arrays")
-  public ArrayCalculator arrayHandler(@RequestBody CalculatorParams input) {
-    CalculatorParams calcParam = new CalculatorParams();
-    calcParam.what = input.what;
-    calcParam.numbers = input.numbers;
-    return new ArrayCalculator(calcParam.what, calcParam.numbers);
+    return new Calculator(what, number.getUntil());
   }
 }
