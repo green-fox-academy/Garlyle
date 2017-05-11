@@ -2,12 +2,23 @@ package com.greenfoxacademy.controller;
 
 import com.greenfoxacademy.model.*;
 import com.greenfoxacademy.model.Exception;
+import com.greenfoxacademy.repository.LogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 public class RequestController {
+  @Autowired
+  LogRepository repository;
+
+  @ModelAttribute
+  public void log(HttpServletRequest request) {
+    repository.save(new Log(request.getRequestURI(), request.getQueryString()));
+  }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public Exception noNumberException() {
@@ -43,5 +54,10 @@ public class RequestController {
   @PostMapping("/dountil/{what}")
   public Calculator dountil(@PathVariable String what, @RequestBody MyNumber number) {
     return new Calculator(what, number.getUntil());
+  }
+
+  @GetMapping("/log")
+  public Iterable<Log> log() {
+    return repository.findAll();
   }
 }
