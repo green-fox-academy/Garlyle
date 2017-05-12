@@ -20,7 +20,7 @@ public class Post {
   public Post(String title, String href) {
     this.title = title;
     this.href = href;
-    timestamp = new Timestamp(System.currentTimeMillis() / 1000);
+    timestamp = new Timestamp(System.currentTimeMillis());
     score = 0;
   }
 
