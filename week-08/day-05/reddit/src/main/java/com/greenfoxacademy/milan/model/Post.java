@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -15,6 +16,15 @@ public class Post {
   String href;
   Date timestamp;
   int score;
+
+  public Post(String title, String href) {
+    this.title = title;
+    this.href = href;
+    timestamp = new Timestamp(System.currentTimeMillis() / 1000);
+    score = 0;
+  }
+
+  public Post() {}
 
   public int getId() {
     return id;
