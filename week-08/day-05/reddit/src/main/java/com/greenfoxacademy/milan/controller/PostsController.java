@@ -1,7 +1,6 @@
 package com.greenfoxacademy.milan.controller;
 
 import com.greenfoxacademy.milan.model.Post;
-import com.greenfoxacademy.milan.model.PostForm;
 import com.greenfoxacademy.milan.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,7 @@ public class PostsController {
   }
 
   @PostMapping("/posts")
-  public Post createPost(@RequestBody PostForm newPost) {
+  public Post createPost(@RequestBody Post newPost) {
     Post post = new Post(newPost.getTitle(), newPost.getHref());
     repository.save(post);
 
@@ -52,7 +51,7 @@ public class PostsController {
   }
 
   @PutMapping("/posts/{id}")
-  public Post updatePost(@PathVariable Long id, @RequestBody PostForm updateForm) {
+  public Post updatePost(@PathVariable Long id, @RequestBody Post updateForm) {
     Post post = repository.findOne(id);
     post.setTitle(updateForm.getTitle());
     post.setHref(updateForm.getHref());
