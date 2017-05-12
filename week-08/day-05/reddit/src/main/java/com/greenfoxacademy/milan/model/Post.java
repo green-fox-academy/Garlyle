@@ -11,7 +11,7 @@ import java.util.Date;
 public class Post {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  int id;
+  Long id;
   String title;
   String href;
   Date timestamp;
@@ -26,11 +26,11 @@ public class Post {
 
   public Post() {}
 
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
@@ -64,5 +64,13 @@ public class Post {
 
   public void setScore(int score) {
     this.score = score;
+  }
+
+  public void upVote() {
+    score++;
+  }
+
+  public void downVote() {
+    score--;
   }
 }
