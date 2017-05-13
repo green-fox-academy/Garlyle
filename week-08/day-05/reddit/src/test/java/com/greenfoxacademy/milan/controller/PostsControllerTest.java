@@ -17,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.nio.charset.Charset;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
@@ -46,7 +47,7 @@ public class PostsControllerTest {
   public void setup() throws Exception {
     this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-    postRepository.deleteAll();
+//    postRepository.deleteAll();
   }
 
   @Test
@@ -63,5 +64,13 @@ public class PostsControllerTest {
         .content("{\"title\": \"JUnit Testing\", \"href\": \"http://9gag.com\"}"))
         .andExpect(status().isOk())
         .andExpect(content().contentType(contentType));
+  }
+
+  @Test
+  public void testForVoting() throws Exception {
+    mockMvc.perform(put("/posts/" + 1 + "/upvote"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(contentType))
+        .andExpect(jsonPath("$.score", is(1)));
   }
 }
