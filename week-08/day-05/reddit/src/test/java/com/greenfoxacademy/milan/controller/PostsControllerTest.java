@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.nio.charset.Charset;
 
-import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
@@ -35,10 +34,10 @@ public class PostsControllerTest {
   private MockMvc mockMvc;
 
   @Autowired
-  private PostRepository userRepository;
+  private PostRepository postRepository;
 
   @Autowired
-  private PostsController userService;
+  private PostsController postsController;
 
   @Autowired
   private WebApplicationContext webApplicationContext;
@@ -46,16 +45,23 @@ public class PostsControllerTest {
   @Before
   public void setup() throws Exception {
     this.mockMvc = webAppContextSetup(webApplicationContext).build();
+
+    postRepository.deleteAll();
   }
 
   @Test
-  public void testUnsuccessfulSignUp() throws Exception {
-    mockMvc.perform(post("/user/signup")
-        .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"email\": \"name@example.com\", \"password\": \"12345\"}"))
+  public void testForGetPosts() throws Exception {
+    mockMvc.perform(get("/posts"))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(contentType))
-        .andExpect(jsonPath("$.result", is("fail")))
-        .andExpect(jsonPath("$.message", is("email address already exists")));
+        .andExpect(content().contentType(contentType));
+  }
+
+  @Test
+  public void testForPosting() throws Exception {
+    mockMvc.perform(post("/posts")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"title\": \"JUnit Testing\", \"href\": \"http://9gag.com\"}"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(contentType));
   }
 }
