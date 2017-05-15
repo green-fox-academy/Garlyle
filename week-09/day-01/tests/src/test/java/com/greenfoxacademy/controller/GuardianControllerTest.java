@@ -35,7 +35,7 @@ public class GuardianControllerTest {
   }
 
   @Test
-  public void testWithString() throws Exception {
+  public void testGrootWithString() throws Exception {
     String message = "Hogy vagy?";
     mockMvc.perform(get("/groot")
         .param("message", message))
@@ -46,10 +46,44 @@ public class GuardianControllerTest {
   }
 
   @Test
-  public void testWithNoParameter() throws Exception {
+  public void testGrootWithNoParameter() throws Exception {
     mockMvc.perform(get("/groot"))
         .andExpect(status().isBadRequest())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(jsonPath("$.error", is("I am Groot!")));
+  }
+
+  @Test
+  public void testYonduWithParameters() throws Exception {
+    Double distance = 100.0;
+    Double time = 10.0;
+    mockMvc.perform(get("/yondu")
+        .param("distance", distance.toString())
+        .param("time", time.toString()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.distance", is(distance)))
+        .andExpect(jsonPath("$.time", is(time)))
+        .andExpect(jsonPath("$.speed", is(10.0)));
+  }
+
+  @Test
+  public void testYonduWithMissingParameters() throws Exception {
+    mockMvc.perform(get("/yondu"))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.error", is("Please give distance and time parameters")));
+  }
+
+  @Test
+  public void testYonduWithZeroTime() throws Exception {
+    Double distance = 100.0;
+    Double time = 0.0;
+    mockMvc.perform(get("/yondu")
+        .param("distance", distance.toString())
+        .param("time", time.toString()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.speed", is("Infinity")));
   }
 }
