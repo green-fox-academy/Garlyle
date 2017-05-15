@@ -1,5 +1,6 @@
 package com.greenfoxacademy.controller;
 
+import com.greenfoxacademy.model.Cargo;
 import com.greenfoxacademy.model.Exception;
 import com.greenfoxacademy.model.GrootTranslate;
 import com.greenfoxacademy.model.YonduArrow;
@@ -26,5 +27,10 @@ public class GuardianController {
   @GetMapping("/yondu")
   public YonduArrow yonduCalculate(@RequestParam float distance, @RequestParam float time) {
     return new YonduArrow(distance, time);
+  }
+
+  @GetMapping("/rocket")
+  public Cargo getCargo() {
+    return new Cargo();
   }
 }
