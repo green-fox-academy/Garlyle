@@ -2,6 +2,7 @@ package com.greenfoxacademy.controller;
 
 import com.greenfoxacademy.TestsApplication;
 
+import com.jayway.jsonpath.JsonPath;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.List;
+import java.util.Map;
+
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
@@ -165,5 +171,23 @@ public class GuardianControllerTest {
         .andExpect(status().isBadRequest())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(jsonPath("$.error", is("Please give caliber and amount parameters")));
+  }
+
+  @Test
+  public void testDraxAddFood() throws Exception {
+    MvcResult result = mockMvc.perform(post("/drax/add")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content("{\"name\":\"Broccoli\",\"amount\":15,\"calorie\":34}"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andReturn();
+
+    String dataString = result.getResponse().getContentAsString();
+    List<Map<String, Object>> dataFood = JsonPath.parse(dataString).read("*");
+    Map<String, Object> testFood = dataFood.get(dataFood.size() - 1);
+
+    assertEquals(testFood.get("name"), "Broccoli");
+    assertEquals(testFood.get("amount"), 15);
+    assertEquals(testFood.get("calorie"), 34);
   }
 }
