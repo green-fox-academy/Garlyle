@@ -86,4 +86,84 @@ public class GuardianControllerTest {
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(jsonPath("$.speed", is("Infinity")));
   }
+
+  @Test
+  public void testRocketCargoStatus() throws Exception {
+    mockMvc.perform(get("/rocket"))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.caliber25", is(0)))
+        .andExpect(jsonPath("$.caliber30", is(0)))
+        .andExpect(jsonPath("$.caliber50", is(0)))
+        .andExpect(jsonPath("$.shipstatus", is("empty")))
+        .andExpect(jsonPath("$.ready", is(false)));
+  }
+
+  @Test
+  public void testRocketCargoEmpty() throws Exception {
+    String caliber = ".25";
+    Integer amount = 0;
+    mockMvc.perform(get("/rocket/fill")
+        .param("caliber", caliber)
+        .param("amount", amount.toString()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.received", is(caliber)))
+        .andExpect(jsonPath("$.amount", is(amount)))
+        .andExpect(jsonPath("$.shipstatus", is("empty")))
+        .andExpect(jsonPath("$.ready", is(false)));
+  }
+
+  @Test
+  public void testRocketCargoLoaded() throws Exception {
+    String caliber = ".25";
+    Integer amount = 5000;
+    mockMvc.perform(get("/rocket/fill")
+        .param("caliber", caliber)
+        .param("amount", amount.toString()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.received", is(caliber)))
+        .andExpect(jsonPath("$.amount", is(amount)))
+        .andExpect(jsonPath("$.shipstatus", is("40%")))
+        .andExpect(jsonPath("$.ready", is(false)));
+  }
+
+  @Test
+  public void testRocketCargoFull() throws Exception {
+    String caliber = ".25";
+    Integer amount = 12500;
+    mockMvc.perform(get("/rocket/fill")
+        .param("caliber", caliber)
+        .param("amount", amount.toString()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.received", is(caliber)))
+        .andExpect(jsonPath("$.amount", is(amount)))
+        .andExpect(jsonPath("$.shipstatus", is("full")))
+        .andExpect(jsonPath("$.ready", is(true)));
+  }
+
+  @Test
+  public void testRocketCargoOverloaded() throws Exception {
+    String caliber = ".25";
+    Integer amount = 50000;
+    mockMvc.perform(get("/rocket/fill")
+        .param("caliber", caliber)
+        .param("amount", amount.toString()))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.received", is(caliber)))
+        .andExpect(jsonPath("$.amount", is(amount)))
+        .andExpect(jsonPath("$.shipstatus", is("overloaded")))
+        .andExpect(jsonPath("$.ready", is(false)));
+  }
+
+  @Test
+  public void testRocketWithMissingParameters() throws Exception {
+    mockMvc.perform(get("/rocket/fill"))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.error", is("Please give caliber and amount parameters")));
+  }
 }

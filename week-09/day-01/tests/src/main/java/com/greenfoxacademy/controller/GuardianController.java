@@ -1,9 +1,7 @@
 package com.greenfoxacademy.controller;
 
-import com.greenfoxacademy.model.Cargo;
+import com.greenfoxacademy.model.*;
 import com.greenfoxacademy.model.Exception;
-import com.greenfoxacademy.model.GrootTranslate;
-import com.greenfoxacademy.model.YonduArrow;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +13,10 @@ public class GuardianController {
   public Exception error(MissingServletRequestParameterException ex) {
     if (ex.getParameterName().equals("message")) {
       return new Exception("I am Groot!");
+    } else if (ex.getParameterName().equals("distance") || ex.getParameterName().equals("time")) {
+      return new Exception("Please give distance and time parameters");
     }
-    return new Exception("Please give distance and time parameters");
+    return new Exception("Please give caliber and amount parameters");
   }
 
   @GetMapping("/groot")
@@ -32,5 +32,10 @@ public class GuardianController {
   @GetMapping("/rocket")
   public Cargo getCargo() {
     return new Cargo();
+  }
+
+  @GetMapping("/rocket/fill")
+  public CargoStatus fillCargo(@RequestParam String caliber, @RequestParam int amount) {
+    return new CargoStatus(caliber, amount);
   }
 }
