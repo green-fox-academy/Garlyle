@@ -1,13 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8"/>
         <title>Todo with Bootstrap</title>
-        <link href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+        <link th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}" rel="stylesheet"/>
     </head>
-    <body>
-    
-        <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
-        <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+    <body class="container">
+        <h1 th:text="'Todos for today'" class="text-center"></h1>
+        <div class="text-center">
+            <a th:href="@{/add}" class="btn btn-warning">Add new todo</a>
+        </div>
+        <br/>
+        <table class="table table-hover col-md-8">
+            <tr>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-5">ACTION</th>
+                <th class="col-md-1">DONE</th>
+                <th class="col-md-1">URGENT</th>
+            </tr>
+            <tr th:each="e : ${todos}">
+                <td th:text="${e.id}" class="col-md-1"></td>
+                <td th:text="${e.title}" class="col-md-5"></td>
+                <td th:if="${e.isDone()}" class="glyphicon glyphicon-ok col-md-1"></td>
+                <td th:unless="${e.isDone()}" class="glyphicon glyphicon-remove col-md-1"></td>
+                <td th:if="${e.isUrgent()}" class="glyphicon glyphicon-ok col-md-1"></td>
+                <td th:unless="${e.isUrgent()}" class="glyphicon glyphicon-remove col-md-1"></td>
+                <td><a th:href="${e.getId() + '/delete'}" class="btn btn-danger">delete</a></td>
+                <td><a th:href="${e.getId() + '/edit'}" class="btn btn-primary">edit</a></td>
+            </tr>
+        </table>
+        <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
     </body>
 </html>
