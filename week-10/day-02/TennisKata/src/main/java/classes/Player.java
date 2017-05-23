@@ -1,8 +1,8 @@
 package classes;
 
 public class Player {
-  String name;
-  int points;
+  private String name;
+  private int points;
 
   public Player(String name) {
     this.name = name;
@@ -13,8 +13,8 @@ public class Player {
     return this.name.equals(name);
   }
 
-  public void increaseScore(int score) {
-    this.points += score;
+  public void increasePoints() {
+    points++;
   }
 
   public int getPoints() {
