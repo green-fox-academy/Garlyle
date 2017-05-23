@@ -1,79 +1,64 @@
+import classes.Player;
 
 public class TennisGame1 implements TennisGame {
 
-  private int m_score1 = 0;
-  private int m_score2 = 0;
-  private String player1Name;
-  private String player2Name;
+  private final String[] SCORE_NAMING = {"Love", "Fifteen", "Thirty", "Forty"};
+
+  private Player firstPlayer;
+  private Player secondPlayer;
 
   public TennisGame1(String player1Name, String player2Name) {
-    this.player1Name = player1Name;
-    this.player2Name = player2Name;
+    firstPlayer = new Player(player1Name);
+    secondPlayer = new Player(player2Name);
   }
 
   public void wonPoint(String playerName) {
-    if (playerName == "player1")
-      m_score1 += 1;
-    else
-      m_score2 += 1;
+    if (firstPlayer.hasName(playerName)) {
+      firstPlayer.increaseScore(1);
+    } else {
+      secondPlayer.increaseScore(1);
+    }
   }
 
   public String getScore() {
-    String score = "";
-    int tempScore=0;
-    if (m_score1==m_score2)
-    {
-      switch (m_score1)
-      {
-        case 0:
-          score = "Love-All";
-          break;
-        case 1:
-          score = "Fifteen-All";
-          break;
-        case 2:
-          score = "Thirty-All";
-          break;
-        case 3:
-          score = "Forty-All";
-          break;
-        default:
-          score = "Deuce";
-          break;
+    if (scoresAreEqual()) {
+      return equalScores(firstPlayer.getPoints());
+    } else if (firstPlayer.isWinnning() || secondPlayer.isWinnning()) {
+      return highScores(firstPlayer.getPoints(), secondPlayer.getPoints());
+    } else {
+      return scoreResult();
+    }
+  }
 
-      }
+  private String scoreResult() {
+    return SCORE_NAMING[firstPlayer.getPoints()] + "-" + SCORE_NAMING[secondPlayer.getPoints()];
+  }
+
+  private boolean scoresAreEqual() {
+    return firstPlayer.getPoints() == secondPlayer.getPoints();
+  }
+
+  private String highScores(int firstScore, int secondScore) {
+    int scoreDifference = firstScore - secondScore;
+    String playerNameWithAdvantage;
+    if (firstScore > secondScore) {
+      playerNameWithAdvantage = firstPlayer.getName();
+    } else {
+      playerNameWithAdvantage = secondPlayer.getName();
     }
-    else if (m_score1>=4 || m_score2>=4)
-    {
-      int minusResult = m_score1-m_score2;
-      if (minusResult==1) score ="Advantage player1";
-      else if (minusResult ==-1) score ="Advantage player2";
-      else if (minusResult>=2) score = "Win for player1";
-      else score ="Win for player2";
+    scoreDifference = Math.abs(scoreDifference);
+
+    if (scoreDifference == 1) {
+      return "Advantage " + playerNameWithAdvantage;
+    } else {
+      return "Win for " + playerNameWithAdvantage;
     }
-    else
-    {
-      for (int i=1; i<3; i++)
-      {
-        if (i==1) tempScore = m_score1;
-        else { score+="-"; tempScore = m_score2;}
-        switch(tempScore)
-        {
-          case 0:
-            score+="Love";
-            break;
-          case 1:
-            score+="Fifteen";
-            break;
-          case 2:
-            score+="Thirty";
-            break;
-          case 3:
-            score+="Forty";
-            break;
-        }
-      }
+  }
+
+  private String equalScores(int score) {
+    if (score > 3) {
+      return "Deuce";
     }
-    return score;
+    return SCORE_NAMING[score] + "-All";
   }
 }
