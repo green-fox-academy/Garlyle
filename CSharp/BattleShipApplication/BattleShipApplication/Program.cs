@@ -22,17 +22,24 @@ namespace BattleShipApplication
                 drawDisplay();
                 Console.Write("Target: ");
                 string input = Console.ReadLine();
-                int x = input[0] - 'A';
-                int y = Int32.Parse(Regex.Match( input, "\\d+" ).Value) - 1;
-                if (table.hit(x, y))
+                try
                 {
-                    hits++;
+                    int x = input[0] - 'A';
+                    int y = Int32.Parse(Regex.Match(input, "\\d+").Value) - 1;
+                    if (table.hit(x, y))
+                    {
+                        hits++;
+                    }
+                    else
+                    {
+                        misses++;
+                    }
+                    total++;
                 }
-                else
+                catch (Exception ex)
                 {
-                    misses++;
+                    Console.WriteLine("Not valid");
                 }
-                total++;
             }
         }
 
