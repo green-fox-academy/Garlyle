@@ -95,6 +95,8 @@ namespace BattleShipApplication
 
         public bool hit(int x, int y)
         {
+            if (visibilityMap[x, y])
+                return false;
             visibilityMap[x, y] = true;
             return shipMap[x, y];
         }
