@@ -7,6 +7,9 @@ namespace BattleShipApplication
     {
         public static void Main(string[] args)
         {
+            GameTable table = new GameTable();
+            table.init();
+            table.printMap();
         }
     }
 }

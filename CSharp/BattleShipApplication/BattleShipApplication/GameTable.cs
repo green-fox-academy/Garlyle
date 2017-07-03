@@ -49,7 +49,7 @@ namespace BattleShipApplication
                 {
                     posY -= length;
                 }
-            } while (posValid(posX, posY, orientation, length);
+            } while (!posValid(posX, posY, orientation, length));
             setupShip(posX, posY, orientation, length);
         }
 
@@ -60,17 +60,19 @@ namespace BattleShipApplication
                 {
                     if (orientation)
                     {
-                        if (shipMap[posX + i, posY + j] == true)
-                        {
-                            return false;
-                        }
+                        if (posX + i < 20 && posX + i >= 0 && posY + j < 20 && posY + j >= 0)
+                            if (shipMap[posX + i, posY + j] == true)
+                            {
+                                return false;
+                            }
                     }
                     else
                     {
-                        if (shipMap[posX + j, posY + i] == true)
-                        {
-                            return false;
-                        }
+                        if (posX + j < 20 && posX + j >= 0 && posY + i < 20 && posY + i >= 0)
+                            if (shipMap[posX + j, posY + i] == true)
+                            {
+                                return false;
+                            }
                     }
                 }
             return true;
@@ -95,6 +97,35 @@ namespace BattleShipApplication
         {
             visibilityMap[x, y] = true;
             return shipMap[x, y];
+        }
+
+        public void init()
+        {
+            placeShip(8);
+            placeShip(5);
+            placeShip(5);
+            placeShip(3);
+            placeShip(3);
+            placeShip(3);
+            placeShip(2);
+            placeShip(2);
+            placeShip(2);
+            placeShip(1);
+            placeShip(1);
+            placeShip(1);
+            placeShip(1);
+        }
+
+        public void printMap()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    Console.Write(getTile(j, i));
+                }
+                Console.WriteLine();                
+            }
         }
     }
 }
