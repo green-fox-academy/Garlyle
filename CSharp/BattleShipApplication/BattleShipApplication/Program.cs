@@ -16,7 +16,9 @@ namespace BattleShipApplication
 
             while (true)
             {
+                Console.Clear();
                 table.printMap();
+                drawDisplay();
                 Console.Write("Target: ");
                 string input = Console.ReadLine();
                 int x = input[0] - 'A';
@@ -31,6 +33,17 @@ namespace BattleShipApplication
                 }
                 total++;
             }
+        }
+
+        private static void drawDisplay()
+        {
+            Console.SetCursorPosition(50, 2);
+            Console.Write("Hit: " + hits);
+            Console.SetCursorPosition(50, 3);
+            Console.Write("Miss: " + misses);
+            Console.SetCursorPosition(50, 4);
+            Console.Write("Total: " + total);
+            Console.SetCursorPosition(0, 22);
         }
     }
 }
