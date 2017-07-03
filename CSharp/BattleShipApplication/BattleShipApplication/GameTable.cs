@@ -118,11 +118,19 @@ namespace BattleShipApplication
 
         public void printMap()
         {
+            char letter = 'A';
+            Console.Write("     ");
             for (int i = 0; i < 20; i++)
             {
+                Console.Write("{0} ", (char)(letter + i));
+            }
+            Console.WriteLine();
+            for (int i = 0; i < 20; i++)
+            {
+                Console.Write("{0,3}: ",i+1);
                 for (int j = 0; j < 20; j++)
                 {
-                    Console.Write(getTile(j, i));
+                    Console.Write(getTile(j, i) + " ");
                 }
                 Console.WriteLine();                
             }
