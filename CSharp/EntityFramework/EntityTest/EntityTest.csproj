@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AnagramTests.cs" />
     <Compile Include="CountLettersTest.cs" />
+    <Compile Include="FibonacciTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
